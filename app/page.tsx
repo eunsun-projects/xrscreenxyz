@@ -1,6 +1,6 @@
 import IfLandscape from '@/components/common/IfLandscape';
 import HubTemplate from '@/components/main/HubTemplate';
-import { basicMetadata } from '@/data/basicMetadata';
+import { basicMetadata } from '@/data/basicMeta.data';
 import { hubData } from '@/data/hub.data';
 import { cn, korean } from '@/utils/common';
 import Link from 'next/link';
