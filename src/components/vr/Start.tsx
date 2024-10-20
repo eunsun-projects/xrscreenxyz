@@ -2,6 +2,7 @@
 
 import { cn } from '@/utils/common';
 import useVrStore, { VrStore } from '@/zustand/vr.store';
+import { useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 import EnterLoader from '../loaders/EnterLoader';
 
@@ -14,11 +15,11 @@ interface StartProps {
 }
 
 function Start({ title }: StartProps) {
-  const { embed, isWebCompReady, setIsWebCompReady } = useVrStore(
+  const [open, setOpen] = useState(false);
+  const { embed, isWebCompReady } = useVrStore(
     useShallow((state: VrStore) => ({
       embed: state.embed,
       isWebCompReady: state.isWebCompReady,
-      setIsWebCompReady: state.setIsWebCompReady,
     })),
   );
 
@@ -26,12 +27,17 @@ function Start({ title }: StartProps) {
     if (embed && window.parent) {
       window.open(window.location.href);
     } else {
-      setIsWebCompReady(false);
+      setOpen(true);
     }
   };
 
   return (
-    <div className="absolute w-dvw h-dvh m-0 p-0 overflow-hidden touch-none z-10 transition-opacity ">
+    <div
+      className={cn(
+        'absolute w-dvw h-dvh m-0 p-0 overflow-hidden touch-none z-10 transition-opacity',
+        !open ? 'block' : 'hidden',
+      )}
+    >
       <div className="h-full w-full duration-100 bg-gray-600">
         <div className="text-center text-white text-4xl font-bold mx-auto break-keep">{title}</div>
         <div className="text-center h-full w-full select-none pointer-events-none">

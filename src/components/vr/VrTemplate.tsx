@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { VrModel } from '../types/vr.type';
 import Start from './Start';
+import Video from './Video';
 
 interface VrTemplateProps {
   model: VrModel;
@@ -28,6 +29,7 @@ function VrTemplate({ model }: VrTemplateProps) {
 
   return (
     <>
+      <Video model={model} />
       <Start title={model.title} />
     </>
   );
