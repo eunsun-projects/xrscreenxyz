@@ -44,6 +44,7 @@ const config: Config = {
       },
       textShadow: {
         screen: '3px 3px 10px #00ffbe, -3px -3px 10px #00ffbe',
+        white: '1px 1px 10px #ffffff',
       },
     },
   },
