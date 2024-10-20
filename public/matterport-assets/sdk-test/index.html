@@ -1,0 +1,70 @@
+<html><head><script defer="defer" src="index.js"></script><link href="css/sdktest.css" rel="stylesheet"></head><body><iframe id="showcase" width="853" height="480" frameborder="0" allowfullscreen></iframe><div style="float: right"><input id="filter-panels"></div><div id="app-container"><div><span>Width:</span><input id="width" type="number" step="1"> <span>Height:</span><input id="height" type="number" step="1"></div><div id="status"><span>Status:</span></div><div id="main-scroll"><div id="control-root"></div><div id="react-root"></div></div></div></body><script>const widthControl = document.getElementById('width');
+    const heightControl = document.getElementById('height');
+    const showcase = document.getElementById('showcase');
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+
+    widthControl.value = showcase.clientWidth;
+    heightControl.value = showcase.clientHeight;
+
+    // listen for changes in the inputs and update the URL hash
+    widthControl.addEventListener('change', () => {
+      showcase.width = widthControl.value;
+      hashParams.set('width', widthControl.value);
+      window.location.hash = '#' + hashParams.toString();
+    });
+    heightControl.addEventListener('change', () => {
+      showcase.height = heightControl.value;
+      hashParams.set('height', heightControl.value);
+      window.location.hash = '#' + hashParams.toString();
+    });
+    widthControl.addEventListener('wheel', e => e.stopPropagation());
+    heightControl.addEventListener('wheel', e => e.stopPropagation());
+
+    // set initial iframe size and update the inputs controls
+    const initialWidth = hashParams.get('width');
+    const initialHeight = hashParams.get('height');
+    if (initialWidth) {
+      widthControl.value = initialWidth;
+      widthControl.dispatchEvent(new Event('change'));
+    }
+    if (initialHeight) {
+      heightControl.value = initialHeight;
+      heightControl.dispatchEvent(new Event('change'));
+    }
+
+    // filter elements and update URL hash
+    const filterElement = document.getElementById('filter-panels');
+    const filterControls = () => {
+      const elts = document.getElementsByClassName('controlPanelHeader');
+      for (const elt of elts) {
+        if (!filterElement.value || elt.textContent.match(
+          new RegExp(`${filterElement.value}`, 'i'))
+        ) {
+          elt.parentElement.style.display = 'block';
+        } else {
+          elt.parentElement.style.display = 'none';
+        }
+      }
+      if (filterElement.value) {
+        hashParams.set('filter', filterElement.value);
+      } else {
+        hashParams.delete('filter');
+      }
+      window.location.hash = '#' + hashParams.toString();
+    };
+    filterElement.addEventListener('keyup', filterControls);
+
+    // observe the DOM and re-run the UI filtering on controls when new child controls are added
+    const controls = document.getElementById('main-scroll');
+    const controlsObserver = new MutationObserver(filterControls);
+    controlsObserver.observe(controls, {
+      childList: true,
+      subtree: true,
+    });
+
+    // set initial control filter and update the input element
+    const initialFilter = hashParams.get('filter');
+    if (initialFilter) {
+      filterElement.value = initialFilter;
+      filterElement.dispatchEvent(new Event('keyup'));
+    }</script></html>
