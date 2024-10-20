@@ -36,6 +36,9 @@ const config: Config = {
       backgroundColor: {
         'screen-blue': '#0000aa',
       },
+      borderColor: {
+        'screen-green': '#00ffbe',
+      },
       textColor: {
         'screen-green': '#00ffbe',
       },

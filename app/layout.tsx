@@ -1,3 +1,4 @@
+import { dunggeunmo } from '@/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -13,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="font-dunggeunmo text-screen-green">{children}</body>
+      <body className={`${dunggeunmo.variable} text-screen-green font-dunggeunmo`}>{children}</body>
     </html>
   );
 }
