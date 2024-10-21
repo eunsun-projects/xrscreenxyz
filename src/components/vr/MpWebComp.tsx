@@ -1,10 +1,12 @@
 'use client';
 import { cn } from '@/utils/common';
 import useVrStore, { VrStore } from '@/zustand/vr.store';
+import { MpSdk } from '@matterport/r3f';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { VrModel } from '../types/vr.type';
+import { customizeVr } from './lib';
 const MatterportViewer = dynamic(
   () => import('@matterport/r3f').then((module) => ({ default: module.MatterportViewer })),
   { ssr: false },
@@ -30,41 +32,40 @@ export default function MpWebComp({ model }: MpWebCompProps) {
 
   const handleReady = () => {
     const mpDom = document.querySelector('#mpviewer')?.shadowRoot;
-    // Apply external styles to the shadow dom
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
     linkElem.setAttribute('href', '/mpcustom.css');
-    // Attach the created element to the shadow dom
     mpDom?.appendChild(linkElem);
   };
 
-  const handleLoading = () => {
+  const handleLoading = async (mpSdk: MpSdk) => {
     setIsWebCompReady(true);
+    const { merged, unCategorized, categorized, customizedAttachs } = await customizeVr(
+      mpSdk,
+      model,
+    );
+
+    console.log(merged, unCategorized, categorized, customizedAttachs);
   };
 
   useEffect(() => {
     if (!mpWrapperRef.current) return;
     /** ============ EventListener-IOSsounduUnlocker =============== */
-    function unLocker() {
+    const handleUnlockMedia = () => {
       if (document.activeElement === mpWrapperRef.current?.firstElementChild) {
-        console.log(
-          '%c Yes! The click happened inside the iframe!',
-          'background: #333333; color: #8dceff',
-        );
         // if(mpModels.video[0]) {
         //     videoRef.current.muted = false;
         //     videoRef.current.pause();
         // }
-        // if(mpModels.isBgm[0]) { audioRef.current.muted = false }
+        // if(mpModels.isBgm[0]) audioRef.current.muted = false;
         window.focus();
-        // remove this event listener since it's no longer needed
-        window.removeEventListener('click', unLocker);
+        window.removeEventListener('click', handleUnlockMedia);
       }
-    }
-    window.addEventListener('click', unLocker);
+    };
+    window.addEventListener('click', handleUnlockMedia);
 
     return () => {
-      window.removeEventListener('click', unLocker);
+      window.removeEventListener('click', handleUnlockMedia);
     };
   }, []);
 
@@ -87,7 +88,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
         applicationKey={process.env.NEXT_PUBLIC_MPSDKKEY}
         onConnected={handleReady}
         onPlaying={handleLoading}
-      />
+      ></MatterportViewer>
     </div>
   );
 }

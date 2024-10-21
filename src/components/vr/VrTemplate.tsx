@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { VrModel } from '../types/vr.type';
 import MpWebComp from './MpWebComp';
-import Start from './Start';
+import StartComp from './Start';
 import Video from './Video';
 
 interface VrTemplateProps {
@@ -31,7 +31,7 @@ function VrTemplate({ model }: VrTemplateProps) {
   return (
     <>
       <Video model={model} />
-      <Start title={model.title} />
+      <StartComp model={model} />
       <MpWebComp model={model} />
     </>
   );

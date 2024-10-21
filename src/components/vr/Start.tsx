@@ -2,19 +2,21 @@
 
 import { cn } from '@/utils/common';
 import useVrStore, { VrStore } from '@/zustand/vr.store';
-import { useState } from 'react';
+import Image from 'next/image';
+import { memo, useState } from 'react';
 import { useShallow } from 'zustand/shallow';
 import EnterLoader from '../loaders/EnterLoader';
+import { VrModel } from '../types/vr.type';
 
 const mouseHelpText =
   '마우스 휠을 통해 줌 인 줌 아웃이 가능합니다.\n마우스 드래그를 통해 공간을 둘러볼 수 있습니다.';
 const keyboardHelpText = '키보드 방향키를 통해 위치를 이동할 수 있습니다.';
 
 interface StartProps {
-  title: string;
+  model: VrModel;
 }
 
-function Start({ title }: StartProps) {
+function StartComp({ model }: StartProps) {
   const [open, setOpen] = useState(false);
   const { embed, isWebCompReady } = useVrStore(
     useShallow((state: VrStore) => ({
@@ -38,8 +40,10 @@ function Start({ title }: StartProps) {
         !open ? 'block' : 'hidden',
       )}
     >
-      <div className="h-full w-full duration-100 bg-gray-600 flex flex-col justify-center items-center">
-        <div className="text-center text-white text-4xl font-bold mx-auto break-keep">{title}</div>
+      <div className="relative h-full w-full duration-100 bg-transparent flex flex-col justify-center items-center z-20">
+        <div className="text-center text-white text-4xl font-bold mx-auto break-keep">
+          {model.title}
+        </div>
         <div className="text-center h-[60%] w-full select-none pointer-events-none flex flex-col justify-center items-center">
           <div className={cn(embed.isEmbedMiddle ? 'h-[70%]' : 'h-full')}>
             <div
@@ -98,8 +102,20 @@ function Start({ title }: StartProps) {
           </div>
         </div>
       </div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-10" />
+      <div className="absolute top-0 left-0 w-full h-full">
+        <Image
+          src={model.background}
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+          alt="background image"
+        />
+      </div>
     </div>
   );
 }
 
+const Start = memo(StartComp);
 export default Start;
