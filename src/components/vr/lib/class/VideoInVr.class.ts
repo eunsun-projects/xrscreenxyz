@@ -1,5 +1,4 @@
 import { ExtendedVideo, VideoXyz } from '@/components/types/vr.type';
-import { MpSdk } from '@matterport/r3f';
 import * as THREE from 'three';
 import { Scene } from '../../../../../public/matterport-assets/sdk';
 

@@ -1,5 +1,4 @@
 import { CustomTagData } from '@/components/types/vr.type';
-import { MpSdk } from '@matterport/r3f';
 
 export const subscribeTags = async (
   mpSdk: MpSdk,

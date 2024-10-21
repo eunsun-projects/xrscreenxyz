@@ -1,4 +1,3 @@
-import { MpSdk } from '@matterport/r3f';
 import * as THREE from 'three';
 import { Mode } from '../../../../../public/matterport-assets/sdk';
 

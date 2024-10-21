@@ -1,6 +1,5 @@
 import { Control, ExtendedVideo, VideoXyz, VrModel } from '@/components/types/vr.type';
 import useVrStore from '@/zustand/vr.store';
-import { MpSdk } from '@matterport/r3f';
 import { VideoController } from './class/VideoController.class';
 import { VideoInVr } from './class/VideoInVr.class';
 import WhiteSky from './class/WhiteSky.class';

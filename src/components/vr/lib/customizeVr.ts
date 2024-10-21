@@ -1,5 +1,4 @@
 import { DropdownData, VrModel } from '@/components/types/vr.type';
-import { MpSdk } from '@matterport/r3f';
 import { categorizeTags } from './categorizeTags';
 import { customizeTags } from './customizeTags';
 import { hidePointer } from './hidePointer';

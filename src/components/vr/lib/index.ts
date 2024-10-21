@@ -1,4 +1,5 @@
 export * from './categorizeTags';
+export * from './changeBottomLogo';
 export * from './customizeTags';
 export * from './customizeVr';
 export * from './hidePointer';
@@ -7,5 +8,6 @@ export * from './hideTagNav';
 export * from './importMediaModule';
 export * from './logAppState';
 export * from './setSceneObject';
+export * from './shareControl';
 export * from './subscribeTags';
 export * from './watchTagState';

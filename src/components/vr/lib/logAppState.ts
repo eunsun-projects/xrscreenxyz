@@ -1,4 +1,3 @@
-import { MpSdk } from '@matterport/r3f';
 import { App, Tag } from '../../../../public/matterport-assets/sdk';
 
 export const logAppState = (mpSdk: MpSdk, tags: Tag.TagData[], attachs: Tag.Attachment[]) => {

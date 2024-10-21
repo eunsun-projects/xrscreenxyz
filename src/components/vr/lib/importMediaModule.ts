@@ -1,5 +1,4 @@
 import { Control, CustomTagData, VideoXyz, VrModel } from '@/components/types/vr.type';
-import { MpSdk } from '@matterport/r3f';
 
 export async function importMediaModule(
   mpSdk: MpSdk,

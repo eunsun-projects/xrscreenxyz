@@ -1,5 +1,3 @@
-import { MpSdk } from '@matterport/r3f';
-
 export const watchTagState = (mpSdk: MpSdk): void => {
   mpSdk.Tag.openTags.subscribe({
     prevState: {

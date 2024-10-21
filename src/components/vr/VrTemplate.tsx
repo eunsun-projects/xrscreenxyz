@@ -13,19 +13,18 @@ interface VrTemplateProps {
 }
 
 function VrTemplate({ model }: VrTemplateProps) {
-  const { setEmbed } = useVrStore(
+  const { setEmbed, dropdownData } = useVrStore(
     useShallow((state: VrStore) => ({
       setEmbed: state.setEmbed,
+      dropdownData: state.dropdownData,
     })),
   );
 
   useEffect(() => {
-    if (window.innerHeight < 400 && window.parent) {
+    if (window.innerHeight < 400 && window.parent)
       setEmbed({ isEmbed: true, isEmbedMiddle: false });
-    }
-    if (window.innerHeight >= 400 && window.innerHeight <= 600) {
+    if (window.innerHeight >= 400 && window.innerHeight <= 600)
       setEmbed({ isEmbed: false, isEmbedMiddle: true });
-    }
   }, [setEmbed]);
 
   return (
