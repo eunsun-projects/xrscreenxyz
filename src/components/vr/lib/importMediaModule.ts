@@ -1,13 +1,12 @@
 import { Control, CustomTagData, VideoXyz, VrModel } from '@/components/types/vr.type';
 import { MpSdk } from '@matterport/r3f';
-import { Tag } from '../../../../public/matterport-assets/sdk';
 
 export async function importMediaModule(
   mpSdk: MpSdk,
   model: VrModel,
   tags: CustomTagData[],
-  attachs: Tag.Attachment[],
-): Promise<[CustomTagData[], Tag.Attachment[], VideoXyz | null, Control | null]> {
+  attachs: CustomTagData[],
+): Promise<[CustomTagData[], CustomTagData[], VideoXyz | null, Control | null]> {
   const isObject = model.object[0];
   const isPlane = model.plane[0];
 
