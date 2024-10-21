@@ -1,4 +1,4 @@
-import { VrModel } from '@/components/types/vr.type';
+import { DropdownData, VrModel } from '@/components/types/vr.type';
 import { MpSdk } from '@matterport/r3f';
 import { categorizeTags } from './categorizeTags';
 import { customizeTags } from './customizeTags';
@@ -23,5 +23,5 @@ export async function customizeVr(mpSdk: MpSdk, model: VrModel) {
   const customizedTags = customizeTags(tags);
   const { merged, unCategorized, categorized } = categorizeTags(customizedTags);
   await setSceneObject(mpSdk, model, objectModule, planeModule);
-  return { merged, unCategorized, categorized, customizedAttachs: attachs };
+  return { merged, unCategorized, categorized, customizedAttachs: attachs } as DropdownData;
 }

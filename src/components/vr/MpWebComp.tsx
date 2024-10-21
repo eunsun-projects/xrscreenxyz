@@ -21,10 +21,11 @@ interface MpWebCompProps {
 }
 
 export default function MpWebComp({ model }: MpWebCompProps) {
-  const { isWebCompReady, setIsWebCompReady } = useVrStore(
+  const { isWebCompReady, setIsWebCompReady, setDropdownData } = useVrStore(
     useShallow((state: VrStore) => ({
       isWebCompReady: state.isWebCompReady,
       setIsWebCompReady: state.setIsWebCompReady,
+      setDropdownData: state.setDropdownData,
     })),
   );
 
@@ -40,12 +41,8 @@ export default function MpWebComp({ model }: MpWebCompProps) {
 
   const handleLoading = async (mpSdk: MpSdk) => {
     setIsWebCompReady(true);
-    const { merged, unCategorized, categorized, customizedAttachs } = await customizeVr(
-      mpSdk,
-      model,
-    );
-
-    console.log(merged, unCategorized, categorized, customizedAttachs);
+    const dropdownData = await customizeVr(mpSdk, model);
+    setDropdownData(dropdownData);
   };
 
   useEffect(() => {
