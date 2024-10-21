@@ -1,9 +1,9 @@
 import { CustomTagData } from '@/components/types/vr.type';
 
-export const customizeTags = (tagData: CustomTagData[]) => {
+export const customizeTags = (tagData: CustomTagData[] | undefined | null) => {
   const regexExp = /\{([^\]\[\r\n]*)\}/; //do not set global flag
 
-  if (tagData.length > 0) {
+  if (tagData && tagData.length > 0) {
     const mapped: CustomTagData[] = tagData.map((tag) => {
       let attachments: string[] = [];
       if (tag.attachments && tag.customAttachments) {

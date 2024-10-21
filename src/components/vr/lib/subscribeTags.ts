@@ -3,11 +3,14 @@ import { MpSdk } from '@matterport/r3f';
 
 export const subscribeTags = async (
   mpSdk: MpSdk,
-): Promise<{ subscribedTags: CustomTagData[]; subscribedAttachs: CustomTagData[] }> => {
+): Promise<{
+  subscribedTags: CustomTagData[] | undefined | null;
+  subscribedAttachs: CustomTagData[] | undefined | null;
+}> => {
   let tagArr: Array<CustomTagData> = [];
   let attachArr: Array<CustomTagData> = [];
 
-  const tagPromise = new Promise<CustomTagData[]>((resolve) => {
+  const tagPromise = new Promise<CustomTagData[] | undefined | null>((resolve) => {
     mpSdk.Tag.data.subscribe({
       onAdded: function (index: number) {
         mpSdk.Tag.allowAction(index, {
@@ -26,7 +29,7 @@ export const subscribeTags = async (
     });
   });
 
-  const attachPromise = new Promise<CustomTagData[]>((resolve) => {
+  const attachPromise = new Promise<CustomTagData[] | undefined | null>((resolve) => {
     mpSdk.Tag.attachments.subscribe({
       onCollectionUpdated(collection: CustomTagData[]) {
         // console.log('첨부파일 ', collection )

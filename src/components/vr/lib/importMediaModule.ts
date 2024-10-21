@@ -4,9 +4,16 @@ import { MpSdk } from '@matterport/r3f';
 export async function importMediaModule(
   mpSdk: MpSdk,
   model: VrModel,
-  tags: CustomTagData[],
-  attachs: CustomTagData[],
-): Promise<[CustomTagData[], CustomTagData[], VideoXyz | null, Control | null]> {
+  tags: CustomTagData[] | undefined | null,
+  attachs: CustomTagData[] | undefined | null,
+): Promise<
+  [
+    CustomTagData[] | undefined | null,
+    CustomTagData[] | undefined | null,
+    VideoXyz | null,
+    Control | null,
+  ]
+> {
   const isObject = model.object[0];
   const isPlane = model.plane[0];
 

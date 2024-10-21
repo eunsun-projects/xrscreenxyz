@@ -53,3 +53,10 @@ export interface Control {
 export type ExtendedVideo = HTMLVideoElement & {
   value: string;
 };
+
+export type DropdownData = {
+  merged: CustomTagData[] | null;
+  unCategorized: CustomTagData[] | null;
+  categorized: CustomTagData[] | null;
+  customizedAttachs: CustomTagData[] | null;
+};
