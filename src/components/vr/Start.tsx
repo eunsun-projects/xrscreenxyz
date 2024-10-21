@@ -24,7 +24,7 @@ function Start({ title }: StartProps) {
   );
 
   const handleStart = () => {
-    if (embed && window.parent) {
+    if (embed.isEmbed && window.parent) {
       window.open(window.location.href);
     } else {
       setOpen(true);
@@ -38,22 +38,22 @@ function Start({ title }: StartProps) {
         !open ? 'block' : 'hidden',
       )}
     >
-      <div className="h-full w-full duration-100 bg-gray-600">
+      <div className="h-full w-full duration-100 bg-gray-600 flex flex-col justify-center items-center">
         <div className="text-center text-white text-4xl font-bold mx-auto break-keep">{title}</div>
-        <div className="text-center h-full w-full select-none pointer-events-none">
-          <div className={cn(embed.isEmbedMiddle ? 'h-[70%]' : 'h-[60%]')}>
+        <div className="text-center h-[60%] w-full select-none pointer-events-none flex flex-col justify-center items-center">
+          <div className={cn(embed.isEmbedMiddle ? 'h-[70%]' : 'h-full')}>
             <div
               className={cn(
                 embed.isEmbed ? 'hidden' : 'flex',
                 embed.isEmbedMiddle ? 'h-[50%]' : 'h-[80%]',
-                'flex-col',
+                'flex-row',
               )}
             >
-              <div className="relative w-full h-full flex flex-col justify-end">
-                <div className="w-full h-full flex justify-end items-end">
+              <div className="relative w-full h-full flex flex-col items-center">
+                <div className="w-full h-full flex justify-center items-end">
                   <div className="opacity-80 w-[63%] h-[80%] bg-contain bg-no-repeat bg-center bg-[url(/assets/svgs/Mouse.svg)]" />
                 </div>
-                <div className="w-full h-full flex justify-end">
+                <div className="w-full h-full flex justify-center">
                   <div className="w-[60%] h-full flex items-center text-center">
                     <p className="w-full text-white whitespace-pre-line leading-5">
                       {mouseHelpText}
@@ -61,11 +61,11 @@ function Start({ title }: StartProps) {
                   </div>
                 </div>
               </div>
-              <div className="w-full h-full flex flex-col">
+              <div className="w-full h-full flex flex-col items-center">
                 <div className="w-[60%] h-full flex items-end">
                   <div className="opacity-80 w-full h-[50%] bg-contain bg-no-repeat bg-center bg-[url(/assets/svgs/Keyboard.svg)]"></div>
                 </div>
-                <div className="w-full h-full flex">
+                <div className="w-full h-full flex justify-center">
                   <div className="w-[60%] h-full flex items-center text-center">
                     <p className="w-full text-white whitespace-pre-line leading-5">
                       {keyboardHelpText}
@@ -82,13 +82,16 @@ function Start({ title }: StartProps) {
                 className={cn(
                   'absolute flex justify-center items-center text-shadow-white text-white w-[7rem] h-[3rem] bg-white/30 transition-all duration-1000 cursor-pointer z-50 text-[1.2rem]',
                   isWebCompReady ? 'pointer-events-auto' : 'pointer-events-none',
-                  isWebCompReady ? 'opacity-100' : 'opacity-0',
                   embed.isEmbedMiddle ? 'text-[1.5rem] w-[6rem] h-[2.5rem]' : 'text-[1rem]',
                   embed.isEmbed ? 'w-[5rem] h-[2rem]' : 'w-[7rem]',
                 )}
                 onClick={handleStart}
               >
-                <p>enter</p>
+                <p
+                  className={cn(isWebCompReady ? 'opacity-100' : 'opacity-0', 'transition-opacity')}
+                >
+                  enter
+                </p>
               </div>
             </div>
             {/* { mpModels.downLogo[0] && !embed && ( <div className={styles.basic_logo} style={{ backgroundImage : `url('${mpModels.lowLogoUrl}')`, backgroundSize : 'contain', backgroundRepeat : "no-repeat", backgroundPosition :"center"}}></div> )} */}

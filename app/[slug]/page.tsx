@@ -1,3 +1,4 @@
+import VrTemplate from '@/components/vr/VrTemplate';
 import { vrData } from '@/data/vr.data';
 import NotFound from '../not-found';
 
@@ -95,7 +96,7 @@ function VrPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const model = vrData.find((post) => post.unique === slug);
   if (!model) return <NotFound />;
-  return <div>{model?.title}</div>;
+  return <VrTemplate model={model} />;
 }
 
 export default VrPage;

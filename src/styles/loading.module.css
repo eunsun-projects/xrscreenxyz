@@ -98,12 +98,11 @@
   align-items: center;
   position: relative;
   width: 80px;
-  height: 80px;
+  height: 100%;
   transition: all 0.35s ease-in;
 }
 .loadercircle div {
   position: absolute;
-  top: 15px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -111,19 +110,19 @@
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .loadercircle div:nth-child(1) {
-  left: 8px;
+  left: 12px;
   animation: loadercircle1 0.6s infinite;
 }
 .loadercircle div:nth-child(2) {
-  left: 8px;
+  left: 12px;
   animation: loadercircle2 0.6s infinite;
 }
 .loadercircle div:nth-child(3) {
-  left: 32px;
+  left: 36px;
   animation: loadercircle2 0.6s infinite;
 }
 .loadercircle div:nth-child(4) {
-  left: 56px;
+  left: 60px;
   animation: loadercircle3 0.6s infinite;
 }
 @keyframes loadercircle1 {

@@ -4,6 +4,7 @@ import useVrStore, { VrStore } from '@/zustand/vr.store';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { VrModel } from '../types/vr.type';
+import MpWebComp from './MpWebComp';
 import Start from './Start';
 import Video from './Video';
 
@@ -22,7 +23,7 @@ function VrTemplate({ model }: VrTemplateProps) {
     if (window.innerHeight < 400 && window.parent) {
       setEmbed({ isEmbed: true, isEmbedMiddle: false });
     }
-    if (window.innerHeight >= 400 && window.innerHeight <= 600 && window.parent) {
+    if (window.innerHeight >= 400 && window.innerHeight <= 600) {
       setEmbed({ isEmbed: false, isEmbedMiddle: true });
     }
   }, [setEmbed]);
@@ -31,6 +32,7 @@ function VrTemplate({ model }: VrTemplateProps) {
     <>
       <Video model={model} />
       <Start title={model.title} />
+      <MpWebComp model={model} />
     </>
   );
 }
