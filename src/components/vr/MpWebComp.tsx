@@ -53,7 +53,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
   const mpWrapperRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<Viewer>(null);
 
-  const handleReady = () => {
+  const handleConnected = () => {
     const mpDom = document.querySelector('#mpviewer')?.shadowRoot;
     const linkElem = document.createElement('link');
     linkElem.setAttribute('rel', 'stylesheet');
@@ -61,7 +61,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
     mpDom?.appendChild(linkElem);
   };
 
-  const handleLoading = async (mpSdk: MpSdk) => {
+  const handleOnPlaying = async (mpSdk: MpSdk) => {
     setIsWebCompReady(true);
     const dropdownData = await customizeVr(mpSdk, model);
     setDropdownData(dropdownData);
@@ -90,7 +90,6 @@ export default function MpWebComp({ model }: MpWebCompProps) {
       window.removeEventListener('click', handleUnlockMedia);
     };
     window.addEventListener('click', handleUnlockMedia);
-
     return () => {
       window.removeEventListener('click', handleUnlockMedia);
     };
@@ -114,8 +113,8 @@ export default function MpWebComp({ model }: MpWebCompProps) {
         }}
         assetBase="matterport-assets/"
         applicationKey={process.env.NEXT_PUBLIC_MPSDKKEY}
-        onConnected={handleReady}
-        onPlaying={handleLoading}
+        onConnected={handleConnected}
+        onPlaying={handleOnPlaying}
       ></MatterportViewer>
     </div>
   );
