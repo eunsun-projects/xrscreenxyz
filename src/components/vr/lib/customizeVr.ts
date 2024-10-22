@@ -11,8 +11,8 @@ import { watchTagState } from './watchTagState';
 export async function customizeVr(mpSdk: MpSdk, model: VrModel) {
   hidePointer(mpSdk);
   hidePucks(mpSdk);
-  watchTagState(mpSdk);
   const { subscribedTags, subscribedAttachs } = await subscribeTags(mpSdk);
+  watchTagState(mpSdk, subscribedTags);
   const [tags, attachs, objectModule, planeModule] = await importMediaModule(
     mpSdk,
     model,

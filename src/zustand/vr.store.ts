@@ -1,4 +1,4 @@
-import { DropdownData } from '@/components/types/vr.type';
+import { DropdownData, ModalState } from '@/components/types/vr.type';
 import { create } from 'zustand';
 import { Model } from '../../public/matterport-assets/sdk';
 
@@ -15,6 +15,8 @@ export type VrStore = {
   isWebCompReady: boolean;
   isDropdownReady: boolean;
   modelInfo: Model.ModelDetails | null;
+  modalState: ModalState;
+  setModalState: (modalState: ModalState) => void;
   setMpSdk: (mpSdk: MpSdk) => void;
   setEmbed: (embed: VrStore['embed']) => void;
   setIsWebCompReady: (isWebCompReady: boolean) => void;
@@ -39,6 +41,12 @@ const useVrStore = create<VrStore>((set) => ({
   isWebCompReady: false,
   isDropdownReady: false,
   modelInfo: null,
+  modalState: {
+    type: null,
+    isOpen: false,
+    selectedTag: null,
+  },
+  setModalState: (modalState: ModalState) => set({ modalState }),
   setMpSdk: (mpSdk: MpSdk) => set({ mpSdk }),
   setEmbed: (embed: VrStore['embed']) => set({ embed }),
   setIsWebCompReady: (isWebCompReady: boolean) => set({ isWebCompReady }),

@@ -4,6 +4,7 @@ import useVrStore, { VrStore } from '@/zustand/vr.store';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { VrModel } from '../types/vr.type';
+import Dropdown from './Dropdown';
 import MpWebComp from './MpWebComp';
 import StartComp from './Start';
 import Video from './Video';
@@ -13,10 +14,9 @@ interface VrTemplateProps {
 }
 
 function VrTemplate({ model }: VrTemplateProps) {
-  const { setEmbed, dropdownData } = useVrStore(
+  const { setEmbed } = useVrStore(
     useShallow((state: VrStore) => ({
       setEmbed: state.setEmbed,
-      dropdownData: state.dropdownData,
     })),
   );
 
@@ -29,6 +29,7 @@ function VrTemplate({ model }: VrTemplateProps) {
 
   return (
     <>
+      <Dropdown model={model} />
       <Video model={model} />
       <StartComp model={model} />
       <MpWebComp model={model} />

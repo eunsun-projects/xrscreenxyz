@@ -6,29 +6,28 @@ import { Fragment, memo, useEffect, useRef, useState } from 'react';
 import { FaHeadphones } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useShallow } from 'zustand/shallow';
-import { ModalState, VrModel } from '../types/vr.type';
-import PopupInfoModal from './InfoModal';
+import { VrModel } from '../types/vr.type';
+import InfoModal from './InfoModal';
 import { navigateToTag } from './lib/navigateToTag';
+import TagModal from './TagModal';
 
 interface DropdownProps {
   model: VrModel;
 }
 function DropdownComp({ model }: DropdownProps) {
-  const { dropdownData, mpSdk, modelInfo, audioRef, viewer } = useVrStore(
-    useShallow((state: VrStore) => ({
-      audioRef: state.audioRef,
-      dropdownData: state.dropdownData,
-      mpSdk: state.mpSdk as MpSdk,
-      modelInfo: state.modelInfo,
-      viewer: state.viewer,
-    })),
-  );
+  const { dropdownData, mpSdk, modelInfo, audioRef, viewer, modalState, setModalState } =
+    useVrStore(
+      useShallow((state: VrStore) => ({
+        audioRef: state.audioRef,
+        dropdownData: state.dropdownData,
+        mpSdk: state.mpSdk as MpSdk,
+        modelInfo: state.modelInfo,
+        viewer: state.viewer,
+        modalState: state.modalState,
+        setModalState: state.setModalState,
+      })),
+    );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [modalState, setModalState] = useState<ModalState>({
-    type: null,
-    isOpen: false,
-    selectedTag: null,
-  });
   const [isMusicOpen, setIsMusicOpen] = useState(false);
   const [scrollHeight, setScrollHeight] = useState<Record<number, string>>({});
   const [activeUnCategorized, setActiveUncategorized] = useState<Record<number, boolean>>(
@@ -48,18 +47,17 @@ function DropdownComp({ model }: DropdownProps) {
   const handleDropdownOpen = () => setIsDropdownOpen((prev) => !prev);
   // 정보 모달 클릭
   const handleClickInfo = () =>
-    setModalState((prev) => ({ ...prev, type: 'info', isOpen: !prev.isOpen, selectedTag: null }));
+    setModalState({ type: 'info', isOpen: !modalState.isOpen, selectedTag: null });
   // 음악 드롭다운 클릭
   const handleMusicOpen = () => setIsMusicOpen((prev) => !prev);
 
   // 카테고리 없는 라벨 클릭
   const handleUnCategorizedLabelClick = (id: string, index: number) => () => {
-    setModalState((prev) => ({
-      ...prev,
+    setModalState({
       type: 'tag',
-      isOpen: !prev.isOpen,
+      isOpen: !modalState.isOpen,
       selectedTag: dropdownData?.merged?.find((item) => item.id === id) ?? null,
-    }));
+    });
     setActiveUncategorized((prev) => ({ ...prev, [index]: !prev[index] }));
     navigateToTag(mpSdk, id);
   };
@@ -75,12 +73,11 @@ function DropdownComp({ model }: DropdownProps) {
 
   // 카테고리 있는 라벨 클릭
   const handleCategorizedLabelClick = (id: string) => () => {
-    setModalState((prev) => ({
-      ...prev,
+    setModalState({
       type: 'tag',
-      isOpen: !prev.isOpen,
+      isOpen: !modalState.isOpen,
       selectedTag: dropdownData?.merged?.find((item) => item.id === id) ?? null,
-    }));
+    });
     navigateToTag(mpSdk, id);
   };
 
@@ -88,7 +85,7 @@ function DropdownComp({ model }: DropdownProps) {
     if (!viewer || !mpSdk) return;
     const handleClickOutside = (event: Event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setModalState((prev) => ({ ...prev, type: null, isOpen: false, selectedTag: null }));
+        setModalState({ type: null, isOpen: false, selectedTag: null });
         mpSdk.Camera.zoomReset();
         mpSdk.Camera.rotate(1, 1);
       }
@@ -102,7 +99,7 @@ function DropdownComp({ model }: DropdownProps) {
         innerIframe.removeEventListener('touchstart', handleClickOutside);
       };
     }
-  }, [viewer, mpSdk]);
+  }, [viewer, mpSdk, setModalState]);
 
   return (
     <>
@@ -113,10 +110,13 @@ function DropdownComp({ model }: DropdownProps) {
         strategy="lazyOnload"
       />
       {modalState.isOpen && modalState.type === 'info' && modelInfo && (
-        <PopupInfoModal
-          modelInfo={modelInfo}
-          logoUrl={model.logo[1] as string}
-          setModalState={setModalState}
+        <InfoModal modelInfo={modelInfo} logoUrl={model.logo[1] as string} />
+      )}
+      {modalState.isOpen && modalState.type === 'tag' && modalState.selectedTag && (
+        <TagModal
+          tag={modalState.selectedTag}
+          mpSdk={mpSdk}
+          attachs={dropdownData?.customizedAttachs ?? []}
         />
       )}
       <div className={cn('w-full h-full bg-transparent', modalState.isOpen ? 'blur-[1px]' : '')} />
@@ -151,7 +151,7 @@ function DropdownComp({ model }: DropdownProps) {
           </>
         )}
 
-        <div className={cn(styles.dropdown_content, isDropdownOpen ? 'block' : 'hidden')}>
+        <div className={cn(isDropdownOpen ? styles.show : '', styles.dropdown_content)}>
           <div className={styles.menucontentInfo} onClick={handleClickInfo}>
             <div className={styles.listInfoIcon}>▶︎</div>
             <div className={styles.listLabel}>Information</div>

@@ -3,17 +3,17 @@
 
 import styles from '@/styles/dropdown.module.css';
 import { phoneMiddle3, phoneMiddle4 } from '@/utils/common';
-import { useMemo } from 'react';
+import useVrStore from '@/zustand/vr.store';
+import { memo, useMemo } from 'react';
 import { Model } from '../../../public/matterport-assets/sdk';
-import { ModalState } from '../types/vr.type';
 
 interface InfoModalProps {
   modelInfo: Model.ModelDetails;
   logoUrl: string | null;
-  setModalState: (state: ModalState) => void;
 }
 
-export default function PopupInfoModal({ modelInfo, logoUrl, setModalState }: InfoModalProps) {
+function InfoModalComp({ modelInfo, logoUrl }: InfoModalProps) {
+  const { setModalState } = useVrStore();
   const handleExit = () => setModalState({ type: null, isOpen: false, selectedTag: null });
 
   const phone = useMemo(() => {
@@ -83,3 +83,5 @@ export default function PopupInfoModal({ modelInfo, logoUrl, setModalState }: In
     </>
   );
 }
+const InfoModal = memo(InfoModalComp);
+export default InfoModal;
