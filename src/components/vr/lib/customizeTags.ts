@@ -12,6 +12,7 @@ export const customizeTags = (tagData: CustomTagData[] | undefined | null) => {
       if (tag.customAttachments) {
         attachments = [...tag.customAttachments];
       }
+      attachments = [...tag.attachments];
       return {
         ...tag,
         sorted: tag.description.match(regexExp), //[1]

@@ -6,6 +6,10 @@
   z-index: 2;
   min-width: 25vw;
   transition: 0.5s ease-in;
+  background-color: rgba(170, 170, 170, 0.4);
+  border: 0px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -14,9 +18,18 @@
 .dropdown_custom button {
   transition: none;
 }
+.link {
+  color: white;
+}
+.link:hover {
+  color: #2e2d2b;
+}
 @media (hover: hover) {
   .dropdown_custom button:hover {
     color: #fff;
+  }
+  .link:hover {
+    color: #2e2d2b;
   }
 }
 .dropdown_custom button:focus {
@@ -47,9 +60,9 @@
   align-items: center;
   border: 0px solid rgba(255, 255, 255, 0.7);
   border-radius: 0px;
-  background-color: rgba(170, 170, 170, 0.4);
+  /* background-color: rgba(170, 170, 170, 0.4);
   backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); */
   font-weight: 400;
   color: white;
   padding: 1vh 2vh;
@@ -86,13 +99,11 @@
   display: none;
   width: 25vw;
   font-weight: 400;
-  background-color: rgba(170, 170, 170, 0.4);
+  /* background-color: rgba(170, 170, 170, 0.4);
   border: 0px solid rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); */
   border-radius: 0px;
-  /* min-width: inherit; */
-  /* width: 99%; */
   max-height: 20vh;
   overflow-y: scroll;
 }
@@ -341,7 +352,7 @@
   -webkit-backdrop-filter: blur(30px);
   color: white;
   padding: 2vh 1vh 2vh 1vh;
-  z-index: 3;
+  z-index: 30;
   -ms-word-break: keep-all !important;
   word-break: keep-all !important;
 }
@@ -470,7 +481,7 @@
 
 .lightBoxBack {
   position: fixed;
-  z-index: 5;
+  z-index: 50;
   display: block;
   left: 0;
   top: 0;
@@ -480,7 +491,8 @@
 }
 
 .lightBoxBack .zoomDiv {
-  display: block;
+  display: flex;
+  gap: 0.5rem;
   position: absolute;
   touch-action: none;
   top: 98%;
@@ -522,8 +534,9 @@
   position: relative;
   height: fit-content;
   width: fit-content;
-  /* max-width: 90%; */
-  /* overflow : scroll; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
@@ -608,7 +621,7 @@
 
 .popup_overlay .txtEleP a:hover,
 .popup_overlay .txtElePs a:hover {
-  color: white;
+  color: #2e2d2b;
 }
 
 .popup_overlay .txtArea .video_container {

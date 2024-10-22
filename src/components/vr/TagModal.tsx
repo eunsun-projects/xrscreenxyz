@@ -52,7 +52,7 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
       return groups[3].length === 9 ? base.replace('#ID#', groups[3]) : url;
     }
     function linkParser(...groups: string[]) {
-      const linkcontainer = `<a href="${groups[2]}" target="_blank">${groups[1]}</a>`;
+      const linkcontainer = `<a href="${groups[2]}" target="_blank" class=${styles.link}>${groups[1]}</a>`;
       return linkcontainer;
     }
     const copiedTag = { ...tag };
@@ -62,7 +62,7 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
     copiedTag.description = changedLink;
     setCustomizedTag(copiedTag);
 
-    const attach = attachs?.find((attach) => tag.attachments[0] === attach.id);
+    const attach = attachs?.find((attach) => tag.attachments.includes(attach.id));
     const src = attach?.src;
     if (!attach) return;
     if (src?.includes('youtu')) {
@@ -205,10 +205,16 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
           {customizedTag.description && (
             <div className={styles.pArea}>
               {customizedTag.description.length >= 100 && (
-                <p className={styles.txtElePs}>{customizedTag.description}</p>
+                <p
+                  className={styles.txtElePs}
+                  dangerouslySetInnerHTML={{ __html: customizedTag.description }}
+                />
               )}
               {customizedTag.description.length < 100 && (
-                <p className={styles.txtElePs}>{customizedTag.description}</p>
+                <p
+                  className={styles.txtElePs}
+                  dangerouslySetInnerHTML={{ __html: customizedTag.description }}
+                />
               )}
             </div>
           )}

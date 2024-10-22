@@ -3,6 +3,7 @@
 
 import styles from '@/styles/dropdown.module.css';
 import { Dispatch, memo, SetStateAction, useEffect, useRef, useState } from 'react';
+import { GrZoomIn, GrZoomOut } from 'react-icons/gr';
 import { Tag } from '../../../public/matterport-assets/sdk';
 
 interface LightboxProps {
@@ -110,12 +111,8 @@ function LightboxComp({ attach, setIsLightBoxOpen, mobile }: LightboxProps) {
 
         {imgSrc && (
           <div className={styles.zoomDiv}>
-            <div className={styles.closeUp} onClick={handleZoom}>
-              zoom_in
-            </div>
-            <div className={styles.closeOut} onClick={handleZoomOut}>
-              zoom_out
-            </div>
+            <GrZoomIn className={styles.closeUp} onClick={handleZoom} />
+            <GrZoomOut className={styles.closeOut} onClick={handleZoomOut} />
           </div>
         )}
       </div>

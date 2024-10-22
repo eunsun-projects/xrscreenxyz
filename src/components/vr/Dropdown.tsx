@@ -30,26 +30,30 @@ function DropdownComp({ model }: DropdownProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMusicOpen, setIsMusicOpen] = useState(false);
   const [scrollHeight, setScrollHeight] = useState<Record<number, string>>({});
-  const [activeUnCategorized, setActiveUncategorized] = useState<Record<number, boolean>>(
-    dropdownData?.unCategorized?.reduce((acc: Record<number, boolean>, _, index) => {
-      acc[index] = false;
-      return acc;
-    }, {}) ?? {},
-  );
-  const [activeCategorized, setActiveCategorized] = useState<Record<number, boolean>>(
-    dropdownData?.categorized?.reduce((acc: Record<number, boolean>, _, index) => {
-      acc[index] = false;
-      return acc;
-    }, {}) ?? {},
+  const [activeCategorized, setActiveCategorized] = useState<Record<number | 'info', boolean>>(
+    () => ({
+      info: false,
+      ...(dropdownData?.categorized?.reduce(
+        (acc, _, index) => {
+          acc[index] = false;
+          return acc;
+        },
+        {} as Record<number, boolean>,
+      ) ?? {}),
+    }),
   );
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownOpen = () => setIsDropdownOpen((prev) => !prev);
   // 정보 모달 클릭
-  const handleClickInfo = () =>
+  const handleInfoClick = () => {
+    setActiveCategorized({ info: true });
     setModalState({ type: 'info', isOpen: !modalState.isOpen, selectedTag: null });
+  };
   // 음악 드롭다운 클릭
   const handleMusicOpen = () => setIsMusicOpen((prev) => !prev);
+
+  console.log(modalState);
 
   // 카테고리 없는 라벨 클릭
   const handleUnCategorizedLabelClick = (id: string, index: number) => () => {
@@ -58,7 +62,7 @@ function DropdownComp({ model }: DropdownProps) {
       isOpen: !modalState.isOpen,
       selectedTag: dropdownData?.merged?.find((item) => item.id === id) ?? null,
     });
-    setActiveUncategorized((prev) => ({ ...prev, [index]: !prev[index] }));
+    setActiveCategorized((prev) => ({ info: false, [index]: !prev[index] }));
     navigateToTag(mpSdk, id);
   };
 
@@ -68,11 +72,11 @@ function DropdownComp({ model }: DropdownProps) {
       const content = e.currentTarget.nextElementSibling;
       const scroll = content?.scrollHeight + 'px';
       setScrollHeight((prev) => ({ ...prev, [index]: activeCategorized[index] ? '0' : scroll }));
-      setActiveCategorized((prev) => ({ ...prev, [index]: !prev[index] }));
     };
 
   // 카테고리 있는 라벨 클릭
-  const handleCategorizedLabelClick = (id: string) => () => {
+  const handleCategorizedLabelClick = (id: string, index: number) => () => {
+    setActiveCategorized((prev) => ({ info: false, [index]: !prev[index] }));
     setModalState({
       type: 'tag',
       isOpen: !modalState.isOpen,
@@ -119,17 +123,20 @@ function DropdownComp({ model }: DropdownProps) {
           attachs={dropdownData?.customizedAttachs ?? []}
         />
       )}
-      <div className={cn('w-full h-full bg-transparent', modalState.isOpen ? 'blur-[1px]' : '')} />
+      <div
+        className={cn(
+          'absolute top-0 left-0 w-full h-full bg-transparent z-10 touch-none pointer-events-none',
+          modalState.isOpen ? 'backdrop-blur-[1px]' : '',
+        )}
+      />
       <div className={styles.dropdown_custom} ref={dropdownRef}>
         {modelInfo && (
-          <>
-            <button>
-              <span
-                className={cn(model.bgm[0] ? 'basis-[80%]' : 'basis-[90%]')}
-                onClick={handleDropdownOpen}
-              >
-                {modelInfo.name}
-              </span>
+          <div className="flex flex-row p-[1vh]">
+            <button
+              className={cn(model.bgm[0] ? 'basis-[80%]' : 'basis-[90%]', 'text-white')}
+              onClick={handleDropdownOpen}
+            >
+              <span>{modelInfo.name}</span>
             </button>
             {model.bgm[0] && (
               <button>
@@ -148,11 +155,14 @@ function DropdownComp({ model }: DropdownProps) {
                 onClick={handleDropdownOpen}
               />
             </button>
-          </>
+          </div>
         )}
 
         <div className={cn(isDropdownOpen ? styles.show : '', styles.dropdown_content)}>
-          <div className={styles.menucontentInfo} onClick={handleClickInfo}>
+          <div
+            className={`${styles.menucontentInfo} ${activeCategorized.info ? styles.active : ''}`}
+            onClick={handleInfoClick}
+          >
             <div className={styles.listInfoIcon}>▶︎</div>
             <div className={styles.listLabel}>Information</div>
           </div>
@@ -160,7 +170,7 @@ function DropdownComp({ model }: DropdownProps) {
           {dropdownData?.unCategorized?.map((tag, index) => (
             <div
               key={tag.id}
-              className={`${styles.menucontent} ${activeUnCategorized[index] ? styles.active : ''}`}
+              className={`${styles.menucontent} ${activeCategorized[index] ? styles.active : ''}`}
               onClick={handleUnCategorizedLabelClick(tag.id, index)}
             >
               <div
@@ -175,10 +185,7 @@ function DropdownComp({ model }: DropdownProps) {
 
           {dropdownData?.unique?.map((title, index) => (
             <Fragment key={title + index}>
-              <button
-                className={`${styles.collap} ${activeCategorized[index] && styles.active2}`}
-                onClick={handleCategorizedMenuClick(index)}
-              >
+              <button className={styles.collap} onClick={handleCategorizedMenuClick(index)}>
                 <span>{title}</span>
               </button>
               <div
@@ -189,11 +196,11 @@ function DropdownComp({ model }: DropdownProps) {
               >
                 {dropdownData?.categorized
                   ?.filter((tag) => tag.sorted?.[1] === title)
-                  .map((tag) => (
+                  .map((tag, index) => (
                     <div
                       key={tag.id}
-                      className={styles.menucontent}
-                      onClick={handleCategorizedLabelClick(tag.id)}
+                      className={`${styles.menucontent} ${activeCategorized[index] ? styles.active : ''}`}
+                      onClick={handleCategorizedLabelClick(tag.id, index)}
                     >
                       <div
                         className={styles.listIcon}

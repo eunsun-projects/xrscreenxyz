@@ -30,7 +30,7 @@ function VrTemplate({ model }: VrTemplateProps) {
   return (
     <>
       <Dropdown model={model} />
-      <Video model={model} />
+      {model.video[0] && <Video model={model} />}
       <StartComp model={model} />
       <MpWebComp model={model} />
     </>
