@@ -41,6 +41,7 @@ const config: Config = {
       },
       textColor: {
         'screen-green': '#00ffbe',
+        selected: '#2e2d2b',
       },
       textShadow: {
         screen: '3px 3px 10px #00ffbe, -3px -3px 10px #00ffbe',
