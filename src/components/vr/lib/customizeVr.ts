@@ -20,7 +20,7 @@ export async function customizeVr(mpSdk: MpSdk, model: VrModel) {
     subscribedAttachs,
   );
   const customizedTags = customizeTags(tags);
-  const { merged, unCategorized, categorized } = categorizeTags(customizedTags);
+  const { merged, unCategorized, categorized, unique } = categorizeTags(customizedTags);
   await setSceneObject(mpSdk, model, objectModule, planeModule);
-  return { merged, unCategorized, categorized, customizedAttachs: attachs } as DropdownData;
+  return { merged, unCategorized, categorized, unique, customizedAttachs: attachs } as DropdownData;
 }

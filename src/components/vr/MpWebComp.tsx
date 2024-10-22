@@ -37,6 +37,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
     setModelInfo,
     setIsDropdownReady,
     setMpSdk,
+    setViewerRef,
   } = useVrStore(
     useShallow((state: VrStore) => ({
       isWebCompReady: state.isWebCompReady,
@@ -47,6 +48,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
       setModelInfo: state.setModelInfo,
       setMpSdk: state.setMpSdk,
       setIsDropdownReady: state.setIsDropdownReady,
+      setViewerRef: state.setViewerRef,
     })),
   );
 
@@ -66,6 +68,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
     const dropdownData = await customizeVr(mpSdk, model);
     setDropdownData(dropdownData);
     if (viewerRef.current) {
+      setViewerRef(viewerRef);
       changeBottomLogo(viewerRef.current);
       shareControl(mpSdk, model, viewerRef.current);
     }

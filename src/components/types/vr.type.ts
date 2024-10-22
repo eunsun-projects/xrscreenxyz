@@ -58,5 +58,6 @@ export type DropdownData = {
   merged: CustomTagData[] | null;
   unCategorized: CustomTagData[] | null;
   categorized: CustomTagData[] | null;
+  unique: string[] | null;
   customizedAttachs: CustomTagData[] | null;
 };
