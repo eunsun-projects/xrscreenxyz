@@ -6,20 +6,14 @@ import { useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { Model } from '../../../public/matterport-assets/sdk';
 import { VrModel } from '../types/vr.type';
-import { changeBottomLogo, customizeVr, shareControl } from './lib';
+import { customizeVr, offMatterportUi, shareControl } from './lib';
 const MatterportViewer = dynamic(
   () => import('@matterport/r3f').then((module) => ({ default: module.MatterportViewer })),
   { ssr: false },
 );
 
-interface ExtendedIframe extends HTMLIFrameElement {
-  contentWindow: Window & {
-    document: Document;
-  };
-}
-export type Viewer = typeof MatterportViewer & {
-  contentWindow: ExtendedIframe['contentWindow'];
-};
+export type Viewer = typeof MatterportViewer;
+
 // const mpSdk = useMatterportSdk();
 // useMatterportSdk 훅은 r3f 캔버스 컴포넌트의 자식들(예를들어 Box 등) 에서만 사용 가능
 // 같은 레벨에서 쓸거면 onPlaying 에서 받아서 써야함!!!
@@ -48,12 +42,11 @@ export default function MpWebComp({ model }: MpWebCompProps) {
       setModelInfo: state.setModelInfo,
       setMpSdk: state.setMpSdk,
       setIsDropdownReady: state.setIsDropdownReady,
-      setViewerRef: state.setViewerRef,
+      setViewerRef: state.setViewer,
     })),
   );
 
   const mpWrapperRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<Viewer>(null);
 
   const handleConnected = () => {
     const mpDom = document.querySelector('#mpviewer')?.shadowRoot;
@@ -64,13 +57,14 @@ export default function MpWebComp({ model }: MpWebCompProps) {
   };
 
   const handleOnPlaying = async (mpSdk: MpSdk) => {
+    const viewer = document.querySelector('#mpviewer');
     setIsWebCompReady(true);
     const dropdownData = await customizeVr(mpSdk, model);
     setDropdownData(dropdownData);
-    if (viewerRef.current) {
-      setViewerRef(viewerRef);
-      changeBottomLogo(viewerRef.current);
-      shareControl(mpSdk, model, viewerRef.current);
+    if (viewer) {
+      setViewerRef(viewer);
+      offMatterportUi(viewer);
+      shareControl(mpSdk, model, viewer);
     }
     const modelInfo: Model.ModelDetails = await mpSdk.Model.getDetails();
     setModelInfo(modelInfo);
@@ -103,7 +97,6 @@ export default function MpWebComp({ model }: MpWebCompProps) {
       <MatterportViewer
         id="mpviewer"
         m={model.sid}
-        ref={viewerRef}
         params={{
           newtags: '1',
           lang: 'en',

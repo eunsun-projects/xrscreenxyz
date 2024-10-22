@@ -20,13 +20,13 @@ type ModalState = {
 };
 
 function Dropdown({ model }: DropdownProps) {
-  const { dropdownData, mpSdk, modelInfo, audioRef, viewerRef } = useVrStore(
+  const { dropdownData, mpSdk, modelInfo, audioRef, viewer } = useVrStore(
     useShallow((state: VrStore) => ({
       audioRef: state.audioRef,
       dropdownData: state.dropdownData,
       mpSdk: state.mpSdk as MpSdk,
       modelInfo: state.modelInfo,
-      viewerRef: state.viewerRef,
+      viewer: state.viewer,
     })),
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -91,23 +91,22 @@ function Dropdown({ model }: DropdownProps) {
   };
 
   useEffect(() => {
-    if (!viewerRef?.current) return;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    if (!viewer) return;
+    const handleClickOutside = (event: Event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setModalState((prev) => ({ ...prev, type: null, isOpen: false, selectedTag: null }));
       }
     };
-    let innerIframe: Document | undefined;
-    if (viewerRef.current) {
-      innerIframe = viewerRef.current.contentWindow?.document;
+    const innerIframe = viewer.shadowRoot?.querySelector('.matterport-webcomponent');
+    if (innerIframe) {
+      innerIframe.addEventListener('mousedown', handleClickOutside);
+      innerIframe.addEventListener('touchstart', handleClickOutside);
+      return () => {
+        innerIframe.removeEventListener('mousedown', handleClickOutside);
+        innerIframe.removeEventListener('touchstart', handleClickOutside);
+      };
     }
-    innerIframe?.body.addEventListener('mousedown', handleClickOutside);
-    innerIframe?.body.addEventListener('touchstart', handleClickOutside);
-    return () => {
-      innerIframe?.body.removeEventListener('mousedown', handleClickOutside);
-      innerIframe?.body.removeEventListener('touchstart', handleClickOutside);
-    };
-  }, [viewerRef]);
+  }, [viewer]);
 
   // style={{ filter : (isPopup || isInfoPopup) ? "blur(1px)" : "none"}}
   return (
