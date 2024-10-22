@@ -61,3 +61,10 @@ export type DropdownData = {
   unique: string[] | null;
   customizedAttachs: CustomTagData[] | null;
 };
+
+export type ModalType = 'info' | 'tag';
+export type ModalState = {
+  type: ModalType | null;
+  isOpen: boolean;
+  selectedTag: CustomTagData | null;
+};

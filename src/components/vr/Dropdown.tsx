@@ -5,20 +5,13 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { FaHeadphones } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useShallow } from 'zustand/shallow';
-import { CustomTagData, VrModel } from '../types/vr.type';
+import { ModalState, VrModel } from '../types/vr.type';
+import PopupInfoModal from './InfoModal';
 import { navigateToTag } from './lib/navigateToTag';
 
 interface DropdownProps {
   model: VrModel;
 }
-
-type ModalType = 'info' | 'tag';
-type ModalState = {
-  type: ModalType | null;
-  isOpen: boolean;
-  selectedTag: CustomTagData | null;
-};
-
 function Dropdown({ model }: DropdownProps) {
   const { dropdownData, mpSdk, modelInfo, audioRef, viewer } = useVrStore(
     useShallow((state: VrStore) => ({
@@ -108,10 +101,16 @@ function Dropdown({ model }: DropdownProps) {
     }
   }, [viewer]);
 
-  // style={{ filter : (isPopup || isInfoPopup) ? "blur(1px)" : "none"}}
   return (
     <>
-      <div className={cn('w-full h-full bg-transparent')} />
+      {modalState.isOpen && modalState.type === 'info' && modelInfo && (
+        <PopupInfoModal
+          modelInfo={modelInfo}
+          logoUrl={model.logo[1] as string}
+          setModalState={setModalState}
+        />
+      )}
+      <div className={cn('w-full h-full bg-transparent', modalState.isOpen ? 'blur-[1px]' : '')} />
       <div className={styles.dropdown_custom} ref={dropdownRef}>
         {modelInfo && (
           <>
