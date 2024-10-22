@@ -59,7 +59,7 @@ export type DropdownData = {
   unCategorized: CustomTagData[] | null;
   categorized: CustomTagData[] | null;
   unique: string[] | null;
-  customizedAttachs: CustomTagData[] | null;
+  customizedAttachs: Tag.Attachment[] | null;
 };
 
 export type ModalType = 'info' | 'tag';

@@ -1,14 +1,15 @@
 import { Control, CustomTagData, VideoXyz, VrModel } from '@/components/types/vr.type';
+import { Tag } from '../../../../public/matterport-assets/sdk';
 
 export async function importMediaModule(
   mpSdk: MpSdk,
   model: VrModel,
   tags: CustomTagData[] | undefined | null,
-  attachs: CustomTagData[] | undefined | null,
+  attachs: Tag.Attachment[] | undefined | null,
 ): Promise<
   [
     CustomTagData[] | undefined | null,
-    CustomTagData[] | undefined | null,
+    Tag.Attachment[] | undefined | null,
     VideoXyz | null,
     Control | null,
   ]

@@ -1,13 +1,14 @@
 import { CustomTagData } from '@/components/types/vr.type';
+import { Tag } from '../../../../public/matterport-assets/sdk';
 
 export const subscribeTags = async (
   mpSdk: MpSdk,
 ): Promise<{
   subscribedTags: CustomTagData[] | undefined | null;
-  subscribedAttachs: CustomTagData[] | undefined | null;
+  subscribedAttachs: Tag.Attachment[] | undefined | null;
 }> => {
   let tagArr: Array<CustomTagData> = [];
-  let attachArr: Array<CustomTagData> = [];
+  let attachArr: Tag.Attachment[] = [];
 
   const tagPromise = new Promise<CustomTagData[] | undefined | null>((resolve) => {
     mpSdk.Tag.data.subscribe({
@@ -28,9 +29,9 @@ export const subscribeTags = async (
     });
   });
 
-  const attachPromise = new Promise<CustomTagData[] | undefined | null>((resolve) => {
+  const attachPromise = new Promise<Tag.Attachment[] | undefined | null>((resolve) => {
     mpSdk.Tag.attachments.subscribe({
-      onCollectionUpdated(collection: CustomTagData[]) {
+      onCollectionUpdated(collection: Tag.Attachment[]) {
         // console.log('첨부파일 ', collection )
         for (const value of Object.values(collection)) {
           attachArr = [...attachArr, value];

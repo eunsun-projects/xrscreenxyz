@@ -1,7 +1,8 @@
 import styles from '@/styles/dropdown.module.css';
 import { cn } from '@/utils/common';
 import useVrStore, { VrStore } from '@/zustand/vr.store';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import Script from 'next/script';
+import { Fragment, memo, useEffect, useRef, useState } from 'react';
 import { FaHeadphones } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useShallow } from 'zustand/shallow';
@@ -12,7 +13,7 @@ import { navigateToTag } from './lib/navigateToTag';
 interface DropdownProps {
   model: VrModel;
 }
-function Dropdown({ model }: DropdownProps) {
+function DropdownComp({ model }: DropdownProps) {
   const { dropdownData, mpSdk, modelInfo, audioRef, viewer } = useVrStore(
     useShallow((state: VrStore) => ({
       audioRef: state.audioRef,
@@ -84,10 +85,12 @@ function Dropdown({ model }: DropdownProps) {
   };
 
   useEffect(() => {
-    if (!viewer) return;
+    if (!viewer || !mpSdk) return;
     const handleClickOutside = (event: Event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setModalState((prev) => ({ ...prev, type: null, isOpen: false, selectedTag: null }));
+        mpSdk.Camera.zoomReset();
+        mpSdk.Camera.rotate(1, 1);
       }
     };
     const innerIframe = viewer.shadowRoot?.querySelector('.matterport-webcomponent');
@@ -99,10 +102,16 @@ function Dropdown({ model }: DropdownProps) {
         innerIframe.removeEventListener('touchstart', handleClickOutside);
       };
     }
-  }, [viewer]);
+  }, [viewer, mpSdk]);
 
   return (
     <>
+      <Script
+        type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+        crossOrigin="anonymous"
+        strategy="lazyOnload"
+      />
       {modalState.isOpen && modalState.type === 'info' && modelInfo && (
         <PopupInfoModal
           modelInfo={modelInfo}
@@ -203,5 +212,5 @@ function Dropdown({ model }: DropdownProps) {
     </>
   );
 }
-
+const Dropdown = memo(DropdownComp);
 export default Dropdown;
