@@ -45,9 +45,14 @@ function InfoModalComp({ modelInfo, logoUrl }: InfoModalProps) {
             </div>
           )}
 
-          <div className={styles.pArea}>
-            <p className={styles.txtEleP}>{modelInfo.summary}</p>
-          </div>
+          {modelInfo.summary && (
+            <div className={styles.pArea}>
+              <p
+                className={styles.txtEleP}
+                dangerouslySetInnerHTML={{ __html: modelInfo.summary }}
+              />
+            </div>
+          )}
 
           {modelInfo.contactName && (
             <div className={styles.pArea}>

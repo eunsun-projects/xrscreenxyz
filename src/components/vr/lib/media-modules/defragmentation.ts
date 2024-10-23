@@ -114,7 +114,7 @@ const modelsDefragmentation = async (
   //function that provides access to three.js framework objects.
   await mpSdk.Scene.configure(function (renderer: any, three: any) {
     // configure PBR
-    renderer.physicallyCorrectLights = false;
+    renderer.physicallyCorrectLights = true;
     // configure shadow mapping
     renderer.shadowMap.enabled = false;
     renderer.shadowMap.bias = -0.0001;
@@ -126,7 +126,7 @@ const modelsDefragmentation = async (
     ambient: {
       enabled: true,
       color: { r: 1, g: 1, b: 1 },
-      intensity: 0.0001,
+      intensity: 0.5,
     },
     directional_joo: {
       enabled: true,
@@ -147,7 +147,7 @@ const modelsDefragmentation = async (
     },
     directional_jang: {
       enabled: true,
-      intensity: 0.4,
+      intensity: 0.7,
       color: { r: 1, g: 1, b: 1 },
       position: {
         x: 13,
@@ -181,7 +181,7 @@ const modelsDefragmentation = async (
     },
     point: {
       enabled: true,
-      intensity: 0.08,
+      intensity: 0.5,
       color: { r: 1, g: 1, b: 1 },
       position: {
         x: 13,
@@ -246,13 +246,13 @@ const modelsDefragmentation = async (
 
   const [sceneObject] = await mpSdk.Scene.createObjects(1);
   // amb light
-  // sceneObject.addNode().addComponent('mp.ambientLight', lights.ambient);
+  sceneObject.addNode().addComponent('mp.ambientLight', lights.ambient);
   // directional light
   sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_joo);
   sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_jang);
   sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_oh);
   // point light
-  // sceneObject.addNode().addComponent('mp.pointLight', lights.point);
+  sceneObject.addNode().addComponent('mp.pointLight', lights.point);
 
   const customNode = sceneObject.addNode();
   customNode.addComponent('makeShadow', shadowFactory);
