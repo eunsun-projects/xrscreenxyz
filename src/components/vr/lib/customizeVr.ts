@@ -12,7 +12,6 @@ export async function customizeVr(mpSdk: MpSdk, model: VrModel) {
   hidePointer(mpSdk);
   hidePucks(mpSdk);
   const { subscribedTags, subscribedAttachs } = await subscribeTags(mpSdk);
-  watchTagState(mpSdk, subscribedTags);
   const [tags, attachs, objectModule, planeModule] = await importMediaModule(
     mpSdk,
     model,
@@ -20,6 +19,7 @@ export async function customizeVr(mpSdk: MpSdk, model: VrModel) {
     subscribedAttachs,
   );
   const customizedTags = customizeTags(tags);
+  watchTagState(mpSdk, subscribedTags, customizedTags);
   const { merged, unCategorized, categorized, unique } = categorizeTags(customizedTags);
   await setSceneObject(mpSdk, model, objectModule, planeModule);
   return { merged, unCategorized, categorized, unique, customizedAttachs: attachs } as DropdownData;

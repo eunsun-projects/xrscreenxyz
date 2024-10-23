@@ -57,7 +57,7 @@ export default function MpWebComp({ model }: MpWebCompProps) {
   };
 
   const handleOnPlaying = async (mpSdk: MpSdk) => {
-    const viewer = document.querySelector('#mpviewer');
+    const viewer = document.querySelector('#mpviewer') as Element;
     setIsWebCompReady(true);
     const dropdownData = await customizeVr(mpSdk, model);
     setDropdownData(dropdownData);

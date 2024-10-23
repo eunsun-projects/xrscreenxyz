@@ -3,6 +3,7 @@ export function offMatterportUi(viewer: Element) {
   const innerIframe = viewer.shadowRoot?.querySelector('.matterport-webcomponent');
   const bottomUi = innerIframe?.querySelector('.footer-ui') as HTMLDivElement;
   const topUi = innerIframe?.querySelector('.top-ui') as HTMLDivElement;
+
   if (topUi) topUi.style.display = 'none';
   if (bottomUi) bottomUi.style.display = 'none';
   // const seleclink = innerIframe?.querySelectorAll('.mp-nova-btn-label');

@@ -90,8 +90,6 @@ function DropdownComp({ model }: DropdownProps) {
     const handleClickOutside = (event: Event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setModalState({ type: null, isOpen: false, selectedTag: null });
-        mpSdk.Camera.zoomReset();
-        mpSdk.Camera.rotate(1, 1);
       }
     };
     const innerIframe = viewer.shadowRoot?.querySelector('.matterport-webcomponent');

@@ -84,8 +84,8 @@ function StartComp({ model }: StartProps) {
 
               <div
                 className={cn(
-                  'absolute flex justify-center items-center text-shadow-white text-white w-[7rem] h-[3rem] bg-white/30 transition-all duration-1000 cursor-pointer z-50 text-[1.2rem]',
-                  isWebCompReady ? 'pointer-events-auto' : 'pointer-events-none',
+                  'absolute justify-center items-center text-shadow-white text-white w-[7rem] h-[3rem] bg-white/30 transition-all duration-1000 cursor-pointer z-50 text-[1.2rem]',
+                  isWebCompReady ? 'pointer-events-auto flex' : 'pointer-events-none hidden',
                   embed.isEmbedMiddle ? 'text-[1.5rem] w-[6rem] h-[2.5rem]' : 'text-[1rem]',
                   embed.isEmbed ? 'w-[5rem] h-[2rem]' : 'w-[7rem]',
                 )}
