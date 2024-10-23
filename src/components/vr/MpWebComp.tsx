@@ -93,7 +93,11 @@ export default function MpWebComp({ model }: MpWebCompProps) {
   }, [audioRef, videoRef, model]);
 
   return (
-    <div className={cn('opacity-0', isWebCompReady && 'opacity-100')} ref={mpWrapperRef}>
+    <div
+      id="mpwrapper"
+      className={cn('opacity-0', isWebCompReady && 'opacity-100')}
+      ref={mpWrapperRef}
+    >
       <MatterportViewer
         id="mpviewer"
         m={model.sid}

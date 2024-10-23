@@ -82,7 +82,7 @@ export class VideoInVr {
     const video = this.video;
     if (this.isControl === false) {
       if (eventType === 'INTERACTION.CLICK') {
-        if (video.value === 'off') {
+        if (video.paused === true) {
           // video.muted = !video.muted;
           video.muted = false;
           video.play();

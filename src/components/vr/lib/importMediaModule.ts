@@ -1,11 +1,9 @@
-// 경로 alias를 상대 경로로 변경한 예시
 import { Tag } from '../../../../sdk';
 import { Control, CustomTagData, VideoXyz, VrModel } from '../../../components/types/vr.type';
-// const context = require.context('@/components/vr/lib/media-modules', false, /\.ts$/);
 
-// 모듈 매핑 객체 생성
 const mediaModules: { [key: string]: () => Promise<any> } = {
   defragmentation: () => import('@/components/vr/lib/media-modules/defragmentation'),
+  src: () => import('@/components/vr/lib/media-modules/src'),
   // 필요한 모듈들을 추가
 };
 
