@@ -62,8 +62,12 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
     const changedLink = ridBr.replace(/\{([^\]\[\r\n]*)\}/g, ''); // delete {***} pattern
     copiedTag.description = changedLink;
     setCustomizedTag(copiedTag);
-
-    const attach = attachs?.find((attach) => tag.customAttachments.includes(attach.id));
+    let attach = null;
+    if (tag.customAttachments) {
+      attach = attachs?.find((attach) => tag.customAttachments.includes(attach.id));
+    } else {
+      attach = attachs?.find((attach) => tag.attachments.includes(attach.id));
+    }
     const src = attach?.src;
     if (!attach) return;
     if (src?.includes('youtu')) {
@@ -106,8 +110,6 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
       }
     };
   }, []);
-
-  console.log('첨부파일 =======>', selectedAttachment);
 
   return (
     <>

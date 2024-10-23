@@ -28,7 +28,6 @@ function DropdownComp({ model }: DropdownProps) {
       })),
     );
 
-  console.log('dropdownData =======>', dropdownData);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMusicOpen, setIsMusicOpen] = useState(false);
   const [scrollHeight, setScrollHeight] = useState<Record<number, string>>({});
@@ -45,8 +44,6 @@ function DropdownComp({ model }: DropdownProps) {
   }));
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  console.log('acitiveCategorized =======>', selectedCategory);
-
   const handleDropdownOpen = () => setIsDropdownOpen((prev) => !prev);
   // 정보 모달 클릭
   const handleInfoClick = () => {
@@ -55,8 +52,6 @@ function DropdownComp({ model }: DropdownProps) {
   };
   // 음악 드롭다운 클릭
   const handleMusicOpen = () => setIsMusicOpen((prev) => !prev);
-
-  console.log(modalState);
 
   // 카테고리 없는 라벨 클릭
   const handleUnCategorizedLabelClick = (id: string) => () => {
