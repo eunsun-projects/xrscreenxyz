@@ -1,18 +1,8 @@
 /** @type {import('next').NextConfig} */
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 const nextConfig = {
+  reactStrictMode: false,
   webpack(config) {
-    // config.module.rules.push({
-    //   test: /\.ts$/,
-    //   include: path.resolve(__dirname, 'src/components/vr/lib/media-modules'),
-    //   use: 'babel-loader',
-    // });
     // // Grab the existing rule that handles SVG imports
-    // config.resolve.alias['@'] = path.resolve(__dirname, 'src');
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
