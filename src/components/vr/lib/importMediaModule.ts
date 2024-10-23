@@ -4,6 +4,7 @@ import { Control, CustomTagData, VideoXyz, VrModel } from '../../../components/t
 const mediaModules: { [key: string]: () => Promise<any> } = {
   defragmentation: () => import('@/components/vr/lib/media-modules/defragmentation'),
   src: () => import('@/components/vr/lib/media-modules/src'),
+  gpuonline: () => import('@/components/vr/lib/media-modules/gpuonline'),
   // 필요한 모듈들을 추가
 };
 
