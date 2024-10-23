@@ -27,9 +27,6 @@ const modelsDefragmentation = async (
     position: [16.9, 3.9, 2.48],
   };
 
-  const origin = [...(model.object[1] as string[])];
-  origin.sort();
-
   /** ===================== 태그 작업 ========================= */
 
   await mpSdk.Asset.registerTexture('introduction', '/assets/ui/tagicon_intro.png');
@@ -47,17 +44,12 @@ const modelsDefragmentation = async (
     return data.number === 10 || data.number === 21;
   });
 
-  // 어태치먼트 아이디 위에 생성해놓은 tempRandomStr 의 값으로 적용, 타입은 rich 타입
-  inputData.forEach((e, i) => {
-    customAttach[i] ??= {
-      id: tempRandomStr[i],
-      src: e.url,
+  inputData.forEach((data, index) => {
+    customAttach[index] ??= {
+      id: tempRandomStr[index],
+      src: data.url,
       type: Tag.AttachmentType.RICH,
     };
-  });
-
-  // 입력한 데이터 값으로 커스텀태그 객체 값 적용
-  inputData.forEach((data, index) => {
     customTags[index] ??= {
       number: data.number,
       id: data.id,

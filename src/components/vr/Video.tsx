@@ -9,23 +9,13 @@ interface VideoCompProps {
 }
 
 function VideoComp({ model }: VideoCompProps) {
-  const [width, setWidth] = useState('');
-  const [height, setHeight] = useState('');
   const [src, setSrc] = useState('');
 
   const videoReference = useRef<HTMLVideoElement>(null);
   const { setVideoRef } = useVrStore();
 
   useEffect(() => {
-    // if(mpModels.video[1] === "low3_final.mp4"){
-    //     console.log('조각모음 비디오 맞냐??????')
-    //     setWidth('720');
-    //     setHeight('1280');
-    // }else{
-    setWidth('320');
-    setHeight('240');
-    // }
-    setSrc(model.video[1] as string);
+    setSrc(`/assets/videos/${model.video[1] as string}`);
   }, [model]);
 
   useEffect(() => {
@@ -43,8 +33,8 @@ function VideoComp({ model }: VideoCompProps) {
         loop
         muted
         autoPlay
-        width={width}
-        height={height}
+        width={240}
+        height={320}
         src={src}
         typeof="video/mp4"
         crossOrigin="anonymous"

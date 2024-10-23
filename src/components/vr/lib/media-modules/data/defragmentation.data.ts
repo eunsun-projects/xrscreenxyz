@@ -7,7 +7,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '01_kwak1',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/00_kwak_juggling1.glb',
     },
     position: [29.064070375741878, 0.8, -3.577735150519743],
     rotation: [0, 0, 0],
@@ -27,7 +27,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '02_kwak2',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/01_kwak_juggling2.glb',
     },
     position: [25.829034033042507, 0, -5.948807325727982],
     rotation: [0, -145, 0],
@@ -47,7 +47,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '03_ahn',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/02_ahn.glb',
     },
     position: [17.665622028326702, 0, -11.11898608297653],
     rotation: [0, 0, 0],
@@ -67,7 +67,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '04_oh',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/03_oh.glb',
     },
     position: [9.004537548053872, 0, -8.542391366439461],
     rotation: [0, 0, 0],
@@ -87,7 +87,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '05_jang',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/04_jang.glb',
     },
     position: [21.76999854741998, 1.2, -8.986029396839877],
     rotation: [0, -120, 0],
@@ -107,7 +107,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '06_jung_leg',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/05_jung_leg.glb',
     },
     position: [4, 0, -3],
     rotation: [0, 0, 0],
@@ -127,7 +127,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '07_jung_power',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/06_jung_power.glb',
     },
     position: [1.0720059205260961, 0, 0.3389242590135968],
     rotation: [0, 0, 0],
@@ -147,7 +147,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '08_jung_snake',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/07_jung_snake.glb',
     },
     position: [6, 0, 0.6419325301259069],
     rotation: [0, 25, 0],
@@ -167,7 +167,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '09_joo',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/08_joo.glb',
     },
     position: [11.78761950513903, 0, -2.2582975121618842],
     rotation: [0, 70, 0],
@@ -187,7 +187,7 @@ const objectsToLoadY: ObjectToLoad[] = [
     id: '10_hong',
     type: Scene.Component.GLTF_LOADER,
     inputs: {
-      url: '',
+      url: '/assets/glbs/defragmentation/09_hong.glb',
     },
     position: [19.219748458531523, 0, -4.313225915298276],
     rotation: [0, 0, 0],
