@@ -12,9 +12,20 @@ export async function setSceneObject(
 ) {
   const videoRef = useVrStore.getState().videoRef;
   const video = videoRef?.current as ExtendedVideo;
+  let videoFactory: (() => VideoInVr) | null = null;
+  let controlFactory: (() => VideoController) | null = null;
 
   const skyFactory = () => new WhiteSky(mpSdk);
   mpSdk.Scene.register('makeSky', skyFactory);
+
+  if (model.video[0] && videoxyz && control) {
+    videoFactory = () => new VideoInVr(mpSdk, video, videoxyz, control.isControl);
+    mpSdk.Scene.register('makeVideo', videoFactory);
+  }
+  if (control && videoxyz && video) {
+    controlFactory = () => new VideoController(videoxyz, control, mpSdk, video);
+    mpSdk.Scene.register('makePp', controlFactory);
+  }
 
   const lights = {
     enabled: true,
@@ -26,14 +37,11 @@ export async function setSceneObject(
   sceneObject.addNode().addComponent('mp.ambientLight', lights); //amb light
   sceneObject.addNode().addComponent('makeSky', skyFactory);
 
-  if (model.video[0] && videoxyz && control) {
-    const videoFactory = () => new VideoInVr(mpSdk, video, videoxyz, control.isControl);
-    mpSdk.Scene.register('makeVideo', videoFactory);
+  if (videoFactory) {
     sceneObject.addNode().addComponent('makeVideo', videoFactory);
   }
-  if (control && videoxyz && video) {
-    const controlFactory = () => new VideoController(videoxyz, control, mpSdk, video);
-    mpSdk.Scene.register('makePp', controlFactory);
+
+  if (controlFactory) {
     sceneObject.addNode().addComponent('makePp', controlFactory);
   }
 

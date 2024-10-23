@@ -30,7 +30,7 @@ export const vrData = [
     unique: 'defragmentation',
     fullUrl: 'https://xr.screenxyz.net/defragmentation',
     logo: [false, ''],
-    object: [true, 'defragmentation.ts'],
+    object: [true, 'defragmentation'],
     plane: [false, ''],
     downLogo: [false, ''],
     bgm: [false, ''],

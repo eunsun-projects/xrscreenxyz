@@ -16,10 +16,7 @@ export class VideoController {
   context: {
     three: typeof THREE;
   };
-  outputs: {
-    objectRoot: THREE.Object3D;
-    collider: THREE.Object3D;
-  };
+  outputs: any;
   constructor(bindArr: VideoXyz, control: Control, mpSdk: MpSdk, video: ExtendedVideo) {
     this.sdk = mpSdk || null;
     this.inputs = {
@@ -33,10 +30,8 @@ export class VideoController {
     this.context = {
       three: THREE,
     };
-    this.outputs = {
-      objectRoot: new THREE.Object3D(),
-      collider: new THREE.Object3D(),
-    };
+    this.onInit = this.onInit.bind(this);
+    this.onEvent = this.onEvent.bind(this);
   }
   events = {
     'INTERACTION.CLICK': true,

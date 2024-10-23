@@ -1,11 +1,26 @@
 import { ObjectToLoad } from '@/components/types/vr.type';
 import randomString from '@/utils/common/randomString';
-import { Scene } from '../../../../../../public/matterport-assets/sdk';
+
+enum Component {
+  OBJ_LOADER = 'mp.objLoader',
+  FBX_LOADER = 'mp.fbxLoader',
+  DAE_LOADER = 'mp.daeLoader',
+  GLTF_LOADER = 'mp.gltfLoader',
+  SCROLLING_TUBE = 'mp.scrollingTube',
+  TRANSFORM_CONTROLS = 'mp.transformControls',
+  LIGHTS_COMPONENT = 'mp.lights',
+  POINT_LIGHT = 'mp.pointLight',
+  DIRECTIONAL_LIGHT = 'mp.directionalLight',
+  AMBIENT_LIGHT = 'mp.ambientLight',
+  CAMERA = 'mp.camera',
+  INPUT = 'mp.input',
+  XR = 'mp.xr',
+}
 
 const objectsToLoadY: ObjectToLoad[] = [
   {
     id: '01_kwak1',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/00_kwak_juggling1.glb',
     },
@@ -25,7 +40,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '02_kwak2',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/01_kwak_juggling2.glb',
     },
@@ -45,7 +60,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '03_ahn',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/02_ahn.glb',
     },
@@ -65,7 +80,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '04_oh',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/03_oh.glb',
     },
@@ -85,7 +100,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '05_jang',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/04_jang.glb',
     },
@@ -105,7 +120,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '06_jung_leg',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/05_jung_leg.glb',
     },
@@ -125,7 +140,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '07_jung_power',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/06_jung_power.glb',
     },
@@ -145,7 +160,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '08_jung_snake',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/07_jung_snake.glb',
     },
@@ -165,7 +180,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '09_joo',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/08_joo.glb',
     },
@@ -185,7 +200,7 @@ const objectsToLoadY: ObjectToLoad[] = [
   },
   {
     id: '10_hong',
-    type: Scene.Component.GLTF_LOADER,
+    type: Component.GLTF_LOADER,
     inputs: {
       url: '/assets/glbs/defragmentation/09_hong.glb',
     },

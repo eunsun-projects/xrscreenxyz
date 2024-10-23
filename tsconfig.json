@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/*": ["./app/*"]
+      "@/app/*": ["./app/*"],
+      "@/sdk": ["./sdk"]
     }
   },
   "include": [
@@ -29,7 +30,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "global.d.ts"
+    "global.d.ts",
+    "src/components/vr/lib/media-modules/*.ts",
+    "sdk.d.ts",
+    "public/matterport-assets/sdk.d.ts"
   ],
   "exclude": ["node_modules"]
 }

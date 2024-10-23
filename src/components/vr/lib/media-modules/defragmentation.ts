@@ -2,17 +2,40 @@ import { Control, CustomTagData, VideoXyz, VrModel } from '@/components/types/vr
 import { sortRegex } from '@/utils/common';
 import randomString from '@/utils/common/randomString';
 import * as THREE from 'three';
-import { Tag } from '../../../../../public/matterport-assets/sdk';
 import loadScene from '../loadScene';
 import { inputData, objectsToLoadY } from './data/defragmentation.data';
 
-type ModelsDefragmentationResult = [CustomTagData[], Tag.Attachment[], VideoXyz, Control];
+enum AttachmentType {
+  /** An unknown type of attachment. This should never happen */
+  UNKNOWN = 'tag.attachment.unknown',
+  APPLICATION = 'tag.attachment.application',
+  AUDIO = 'tag.attachment.audio',
+  /** The attachment contains an image */
+  IMAGE = 'tag.attachment.image',
+  /** The attachment contains rich content like an iframe of another site */
+  MODEL = 'tag.attachment.model',
+  PDF = 'tag.attachment.pdf',
+  RICH = 'tag.attachment.rich',
+  TEXT = 'tag.attachment.text',
+  /** The attachment contains a video */
+  VIDEO = 'tag.attachment.video',
+  ZIP = 'tag.attachment.zip',
+  /** The attachment is a sandbox created by a call to [[Tag.registerSandbox]] */
+  SANDBOX = 'tag.attachment.sandbox',
+}
+type Attachment = {
+  id: string;
+  src: string;
+  type: AttachmentType;
+};
+
+type ModelsDefragmentationResult = [CustomTagData[], Attachment[], VideoXyz, Control];
 
 const modelsDefragmentation = async (
   mpSdk: MpSdk,
   model: VrModel,
   tags: CustomTagData[] | undefined | null,
-  attachs: Tag.Attachment[] | undefined | null,
+  attachs: Attachment[] | undefined | null,
 ): Promise<ModelsDefragmentationResult> => {
   const videoXyz: VideoXyz = {
     isVideo: true,
@@ -33,7 +56,7 @@ const modelsDefragmentation = async (
   await mpSdk.Asset.registerTexture('poster', '/assets/ui/tagicon_poster.png');
 
   const customTags: CustomTagData[] = [];
-  const customAttach: Tag.Attachment[] = attachs?.map((attach) => ({ ...attach })) ?? [];
+  const customAttach: Attachment[] = attachs?.map((attach) => ({ ...attach })) ?? [];
   const tempRandomStr: string[] = [];
 
   inputData.forEach((data, i) => {
@@ -48,7 +71,7 @@ const modelsDefragmentation = async (
     customAttach[index] ??= {
       id: tempRandomStr[index],
       src: data.url,
-      type: Tag.AttachmentType.RICH,
+      type: AttachmentType.RICH,
     };
     customTags[index] ??= {
       number: data.number,

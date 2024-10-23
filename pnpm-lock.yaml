@@ -60,6 +60,9 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.1
+      '@types/webpack-env':
+        specifier: ^1.18.5
+        version: 1.18.5
       eslint:
         specifier: ^8
         version: 8.57.1
@@ -948,6 +951,9 @@ packages:
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
+
+  '@types/webpack-env@1.18.5':
+    resolution: {integrity: sha512-wz7kjjRRj8/Lty4B+Kr0LN6Ypc/3SymeCCGSbaXp2leH0ZVg/PriNiOwNj4bD4uphI7A8NXS4b6Gl373sfO5mA==}
 
   '@types/webxr@0.5.20':
     resolution: {integrity: sha512-JGpU6qiIJQKUuVSKx1GtQnHJGxRjtfGIhzO2ilq43VZZS//f1h1Sgexbdk+Lq+7569a6EYhOWrUpIruR/1Enmg==}
@@ -3659,6 +3665,8 @@ snapshots:
       meshoptimizer: 0.18.1
 
   '@types/trusted-types@2.0.7': {}
+
+  '@types/webpack-env@1.18.5': {}
 
   '@types/webxr@0.5.20': {}
 
