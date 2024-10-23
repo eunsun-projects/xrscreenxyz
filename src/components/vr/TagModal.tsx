@@ -5,6 +5,7 @@ import styles from '@/styles/dropdown.module.css';
 import { linkUrl, vimeoUrl, youtubeUrl } from '@/utils/common';
 import useVrStore from '@/zustand/vr.store';
 import { memo, useEffect, useRef, useState } from 'react';
+import { GrZoomIn } from 'react-icons/gr';
 import { Tag } from '../../../public/matterport-assets/sdk';
 import VideoLoader from '../loaders/VideoLoader';
 import { CustomTagData } from '../types/vr.type';
@@ -62,7 +63,7 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
     copiedTag.description = changedLink;
     setCustomizedTag(copiedTag);
 
-    const attach = attachs?.find((attach) => tag.attachments.includes(attach.id));
+    const attach = attachs?.find((attach) => tag.customAttachments.includes(attach.id));
     const src = attach?.src;
     if (!attach) return;
     if (src?.includes('youtu')) {
@@ -105,6 +106,8 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
       }
     };
   }, []);
+
+  console.log('첨부파일 =======>', selectedAttachment);
 
   return (
     <>
@@ -170,8 +173,8 @@ function TagModalComp({ tag, mpSdk, attachs }: TagModalProps) {
                       shadow-intensity="1"
                     />
                   </div>
-                  <div className={styles.closeUp} onClick={handleLightBox}>
-                    zoom_in
+                  <div className="w-full flex justify-center">
+                    <GrZoomIn className={styles.closeUp} onClick={handleLightBox} />
                   </div>
                 </>
               )}

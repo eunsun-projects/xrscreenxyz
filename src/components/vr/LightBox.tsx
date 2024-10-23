@@ -82,31 +82,33 @@ function LightboxComp({ attach, setIsLightBoxOpen, mobile }: LightboxProps) {
             overflowY: zoom ? 'scroll' : 'hidden',
           }}
         >
-          <div
-            className={styles.lightBoxCon}
-            style={{
-              transform: zoom ? 'scale(1.5)' : 'scale(1)',
-              transformOrigin: mobile ? 'left top' : 'center top',
-              objectPosition: 'center',
-              objectFit: 'contain',
-              marginTop: zoom ? '3rem' : '0rem',
-            }}
-          >
-            {imgSrc && <img alt={styles.xyzlightbox} className={styles.lightBoxImg} src={imgSrc} />}
-            {glbSrc && (
-              <>
-                <div className={styles.con3dArea}>
-                  <model-viewer
-                    src={glbSrc}
-                    camera-controls
-                    auto-rotate
-                    alt="3dmodel"
-                    shadow-intensity="1"
-                  />
-                </div>
-              </>
-            )}
-          </div>
+          {imgSrc && (
+            <div
+              className={styles.lightBoxCon}
+              style={{
+                transform: zoom ? 'scale(1.5)' : 'scale(1)',
+                transformOrigin: mobile ? 'left top' : 'center top',
+                objectPosition: 'center',
+                objectFit: 'contain',
+                marginTop: zoom ? '3rem' : '0rem',
+              }}
+            >
+              <img alt={styles.xyzlightbox} className={styles.lightBoxImg} src={imgSrc} />
+            </div>
+          )}
+
+          {glbSrc && (
+            <div className="w-full h-full flex justify-center items-center">
+              <model-viewer
+                style={{ width: '100%', height: '100%' }}
+                src={glbSrc}
+                camera-controls
+                auto-rotate
+                alt="3dmodel"
+                shadow-intensity="1"
+              />
+            </div>
+          )}
         </div>
 
         {imgSrc && (

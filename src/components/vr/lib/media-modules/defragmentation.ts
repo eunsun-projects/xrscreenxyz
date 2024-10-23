@@ -70,7 +70,7 @@ const modelsDefragmentation = async (
   inputData.forEach((data, index) => {
     customAttach[index] ??= {
       id: tempRandomStr[index],
-      src: data.url,
+      src: data.media.src,
       type: AttachmentType.RICH,
     };
     customTags[index] ??= {
