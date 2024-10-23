@@ -1,8 +1,7 @@
 import { CustomTagData } from '@/components/types/vr.type';
+import { sortRegex } from '@/utils/common';
 
 export const customizeTags = (tagData: CustomTagData[] | undefined | null) => {
-  const regexExp = /\{([^\]\[\r\n]*)\}/; //do not set global flag
-
   if (tagData && tagData.length > 0) {
     const mapped: CustomTagData[] = tagData.map((tag) => {
       let attachments: string[] = [];
@@ -15,7 +14,7 @@ export const customizeTags = (tagData: CustomTagData[] | undefined | null) => {
       attachments = [...tag.attachments];
       return {
         ...tag,
-        sorted: tag.description.match(regexExp), //[1]
+        sorted: tag.description.match(sortRegex), //[1]
         attachments,
       };
     });

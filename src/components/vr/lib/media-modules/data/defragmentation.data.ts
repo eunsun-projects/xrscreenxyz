@@ -1,9 +1,11 @@
+import { ObjectToLoad } from '@/components/types/vr.type';
 import randomString from '@/utils/common/randomString';
+import { Scene } from '../../../../../../public/matterport-assets/sdk';
 
-const objectsToLoadY = [
+const objectsToLoadY: ObjectToLoad[] = [
   {
     id: '01_kwak1',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -23,7 +25,7 @@ const objectsToLoadY = [
   },
   {
     id: '02_kwak2',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -43,7 +45,7 @@ const objectsToLoadY = [
   },
   {
     id: '03_ahn',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -63,7 +65,7 @@ const objectsToLoadY = [
   },
   {
     id: '04_oh',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -83,7 +85,7 @@ const objectsToLoadY = [
   },
   {
     id: '05_jang',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -103,7 +105,7 @@ const objectsToLoadY = [
   },
   {
     id: '06_jung_leg',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -123,7 +125,7 @@ const objectsToLoadY = [
   },
   {
     id: '07_jung_power',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -143,7 +145,7 @@ const objectsToLoadY = [
   },
   {
     id: '08_jung_snake',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -163,7 +165,7 @@ const objectsToLoadY = [
   },
   {
     id: '09_joo',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },
@@ -183,7 +185,7 @@ const objectsToLoadY = [
   },
   {
     id: '10_hong',
-    type: 'mp.gltfLoader',
+    type: Scene.Component.GLTF_LOADER,
     inputs: {
       url: '',
     },

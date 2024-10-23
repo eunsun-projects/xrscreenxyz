@@ -7,3 +7,4 @@ export const youtubeUrl =
 export const vimeoUrl =
   /(http|https)?:\/\/(www\.|player\.)?vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|video\/|)(\d+)(?:|\/\?)/;
 export const linkUrl = /\[(.+?)\]\((https?:\/\/.+?)\)/g;
+export const sortRegex = /\{([^\]\[\r\n]*)\}/; //do not set global flag

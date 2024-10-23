@@ -1,5 +1,5 @@
 import { vrData } from '@/data/vr.data';
-import { Tag } from '../../../public/matterport-assets/sdk';
+import { Scene, Tag } from '../../../public/matterport-assets/sdk';
 
 export type VrModel = (typeof vrData)[number];
 export interface TestData {
@@ -35,6 +35,10 @@ export interface TestData {
 export interface CustomTagData extends Tag.TagData {
   sorted: RegExpMatchArray | null;
   customAttachments: string[];
+  number: number;
+  enabled: boolean;
+  floorIndex: number;
+  roomId: string;
 }
 
 export interface VideoXyz {
@@ -67,4 +71,27 @@ export type ModalState = {
   type: ModalType | null;
   isOpen: boolean;
   selectedTag: CustomTagData | null;
+};
+
+export type ObjectToLoad = {
+  id: string;
+  type: Scene.Component;
+  inputs: {
+    url: string;
+  };
+  position: number[];
+  rotation: number[];
+  scale: number[];
+  shadowScale: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  shadowPosition: {
+    x: number;
+    y: number;
+    z: number;
+  };
+  bind?: string;
+  castShadow?: boolean;
 };
