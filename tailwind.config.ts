@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -9,12 +10,56 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        dunggeunmo: [
+          'var(--font-dunggeunmo)',
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          "'Segoe UI'",
+          'Roboto',
+          "'Helvetica Neue'",
+          'Arial',
+          "'Noto Sans'",
+          'sans-serif',
+          "'Apple Color Emoji'",
+          "'Segoe UI Emoji'",
+          "'Segoe UI Symbol'",
+          "'Noto Color Emoji'",
+        ],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      backgroundColor: {
+        'screen-blue': '#0000aa',
+      },
+      borderColor: {
+        'screen-green': '#00ffbe',
+      },
+      textColor: {
+        'screen-green': '#00ffbe',
+        selected: '#2e2d2b',
+      },
+      textShadow: {
+        screen: '3px 3px 10px #00ffbe, -3px -3px 10px #00ffbe',
+        white: '1px 1px 10px #ffffff',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') },
+      );
+    }),
+  ],
 };
 export default config;

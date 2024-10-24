@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "target": "esnext",
     "plugins": [
       {
         "name": "next"
@@ -19,9 +20,20 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/*": ["./src/app/*"]
+      "@/app/*": ["./app/*"],
+      "@/sdk": ["./sdk"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "svgr.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "global.d.ts",
+    "src/components/vr/lib/media-modules/*.ts",
+    "sdk.d.ts",
+    "public/matterport-assets/sdk.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
