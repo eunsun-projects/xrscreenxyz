@@ -3,6 +3,7 @@
 import styles from '@/styles/vas.module.css';
 import Link from 'next/link';
 import { useState } from 'react';
+import { IoClose, IoHome, IoPause } from 'react-icons/io5';
 import VasCanvas from './VasCanvas';
 import VasIntro from './VasIntro';
 
@@ -22,16 +23,16 @@ export default function VasNavHelp({ title, mobile }: VasNavHelpProps) {
     <>
       <div className={styles.vastopnav}>
         <div className={styles.topnavbox} onClick={handlePause}>
-          <span className={styles.materialicons}>pause</span>
+          <IoPause className={styles.materialicons} />
         </div>
         <Link href={'/vas'} style={{ color: 'white' }}>
           <div className={styles.topnavbox}>
-            <span className={styles.materialicons}>close</span>
+            <IoClose className={styles.materialicons} />
           </div>
         </Link>
         <Link href={'/'} style={{ color: 'white' }}>
           <div className={styles.topnavbox}>
-            <span className={styles.materialicons}>home</span>
+            <IoHome className={styles.materialicons} />
           </div>
         </Link>
       </div>

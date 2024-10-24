@@ -2,6 +2,7 @@
 
 import { useLoadingCounter } from '@/context/vasLoading.context';
 import styles from '@/styles/vas.module.css';
+import { useEffect } from 'react';
 
 interface VasIntroProps {
   title: string;
@@ -14,6 +15,19 @@ export default function VasIntro({ title, setEnter }: VasIntroProps) {
   const handleEnter = () => {
     setEnter(true);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      console.log(event.key);
+      if (event.key === 'Enter') {
+        setEnter(true);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [setEnter]);
 
   return (
     <div className={styles.intromenu}>

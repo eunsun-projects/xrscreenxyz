@@ -2,6 +2,7 @@
 
 import styles from '@/styles/vas.module.css';
 import { useState } from 'react';
+import { MdCloseFullscreen, MdOpenInFull } from 'react-icons/md';
 
 interface VasCaptionProps {
   bool: boolean;
@@ -24,9 +25,10 @@ export default function VasCaption({ bool, info }: VasCaptionProps) {
       <div className={styles.workinfo} style={{ display: big === false ? 'block' : 'none' }}>
         <h3>{info.title}</h3>
         {/* span을 클릭하면 */}
-        <span className={`${styles.materialicons} ${styles.infofull}`} onClick={handleBig}>
-          open_in_full
-        </span>
+        <MdOpenInFull
+          className={`${styles.materialicons} ${styles.infofull}`}
+          onClick={handleBig}
+        />
         <p>{'artist : ' + info.artist}</p>
         <p>{'year : ' + info.year}</p>
         <p>{'material : ' + info.mate}</p>
@@ -35,10 +37,10 @@ export default function VasCaption({ bool, info }: VasCaptionProps) {
       {/* 여기를 보이게하고*/}
       <div className={styles.bigtxt} style={{ display: big === true ? 'block' : 'none' }}>
         {/* <h3></h3> */}
-        {/* span을 클릭하면 */}
-        <span className={`${styles.materialicons} ${styles.infoclose}`} onClick={handleSmall}>
-          close_fullscreen
-        </span>
+        <MdCloseFullscreen
+          className={`${styles.materialicons} ${styles.infoclose}`}
+          onClick={handleSmall}
+        />
         <p>{'artist : ' + info.artist}</p>
         <p>{'year : ' + info.year}</p>
         <p>{'material : ' + info.mate}</p>

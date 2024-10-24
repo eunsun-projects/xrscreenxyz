@@ -1,6 +1,12 @@
 'use client';
 
 import styles from '@/styles/vas.module.css';
+import {
+  IoMdArrowRoundBack,
+  IoMdArrowRoundDown,
+  IoMdArrowRoundForward,
+  IoMdArrowRoundUp,
+} from 'react-icons/io';
 
 export default function VasKeyarrow({ vas, mobile }: { vas: any; mobile: boolean }) {
   const handleDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -36,26 +42,18 @@ export default function VasKeyarrow({ vas, mobile }: { vas: any; mobile: boolean
         style={{ position: 'relative', top: '-4px', display: mobile ? 'none' : 'flex' }}
         data-arrow="ArrowUp"
       >
-        <span className={styles.materialicons} data-arrow="ArrowUp">
-          arrow_upward
-        </span>
+        <IoMdArrowRoundUp className={styles.materialicons} data-arrow="ArrowUp" />
       </div>
 
       <div className={styles.vaskeybelow} style={{ display: mobile ? 'none' : 'flex' }}>
         <div className={styles.vasarr} data-arrow="ArrowLeft">
-          <span className={styles.materialicons} data-arrow="ArrowLeft">
-            arrow_back
-          </span>
+          <IoMdArrowRoundBack className={styles.materialicons} data-arrow="ArrowLeft" />
         </div>
         <div className={styles.vasarr} data-arrow="ArrowDown">
-          <span className={styles.materialicons} data-arrow="ArrowDown">
-            arrow_downward
-          </span>
+          <IoMdArrowRoundDown className={styles.materialicons} data-arrow="ArrowDown" />
         </div>
         <div className={styles.vasarr} data-arrow="ArrowRight">
-          <span className={styles.materialicons} data-arrow="ArrowRight">
-            arrow_forward
-          </span>
+          <IoMdArrowRoundForward className={styles.materialicons} data-arrow="ArrowRight" />
         </div>
       </div>
 
