@@ -59,7 +59,7 @@ function StartComp({ model }: StartProps) {
                 </div>
                 <div className="w-full h-full flex justify-center">
                   <div className="w-[60%] h-full flex items-center text-center">
-                    <p className="w-full text-white whitespace-pre-line leading-5">
+                    <p className="text-sm md:text-base w-full text-white whitespace-pre-line leading-5">
                       {mouseHelpText}
                     </p>
                   </div>
@@ -71,7 +71,7 @@ function StartComp({ model }: StartProps) {
                 </div>
                 <div className="w-full h-full flex justify-center">
                   <div className="w-[60%] h-full flex items-center text-center">
-                    <p className="w-full text-white whitespace-pre-line leading-5">
+                    <p className="text-sm md:text-base w-full text-white whitespace-pre-line leading-5">
                       {keyboardHelpText}
                     </p>
                   </div>
@@ -84,8 +84,10 @@ function StartComp({ model }: StartProps) {
 
               <div
                 className={cn(
-                  'absolute justify-center items-center text-shadow-white text-white w-[7rem] h-[3rem] bg-white/30 transition-all duration-1000 cursor-pointer z-50 text-[1.2rem]',
-                  isWebCompReady ? 'pointer-events-auto flex' : 'pointer-events-none hidden',
+                  'absolute flex justify-center items-center text-shadow-white text-white w-[7rem] h-[3rem] bg-white/30 transition-all duration-1000 cursor-pointer z-50 text-[1.2rem]',
+                  isWebCompReady
+                    ? 'pointer-events-auto opacity-100'
+                    : 'pointer-events-none opacity-0',
                   embed.isEmbedMiddle ? 'text-[1.5rem] w-[6rem] h-[2.5rem]' : 'text-[1rem]',
                   embed.isEmbed ? 'w-[5rem] h-[2rem]' : 'w-[7rem]',
                 )}

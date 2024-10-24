@@ -84,11 +84,15 @@ export function shareControl(mpsdk: MpSdk, model: VrModel, viewer: Element) {
           inputGroup?.[0].insertAdjacentElement('afterbegin', newinput);
 
           function copyTo() {
-            window.navigator.clipboard.writeText(uniqueUrl);
+            navigator.clipboard.writeText(uniqueUrl);
           }
 
-          const copybttn = innerIframe?.querySelectorAll('button');
-          if (copybttn) copybttn[6].onclick = copyTo;
+          const buttons = innerIframe?.querySelectorAll('button');
+          const copyButton = Array.from(buttons || []).find((btn) =>
+            btn.classList.contains('input-addon'),
+          );
+
+          if (copyButton) copyButton.onclick = copyTo;
 
           const social = innerIframe?.querySelector('.social-icons');
           if (social) {
@@ -134,7 +138,7 @@ export function shareControl(mpsdk: MpSdk, model: VrModel, viewer: Element) {
 
           /** ==== when mobile auto open share api ==== */
           if (
-            window.navigator.canShare() &&
+            window.navigator.share &&
             mutation.target instanceof Element &&
             mutation.target.className.includes('open')
           ) {
@@ -150,12 +154,9 @@ export function shareControl(mpsdk: MpSdk, model: VrModel, viewer: Element) {
               .catch((err) => {
                 console.log(err);
               });
-          } else if (
-            window.navigator.canShare === undefined ||
-            window.navigator.canShare === null
-          ) {
+          } else {
             /** ==== when desktop write Url to clipbaord ==== */
-            window.navigator.clipboard.writeText(uniqueUrl);
+            navigator.clipboard.writeText(uniqueUrl);
           }
         }
         const customDropdown = document.querySelector(`.${styles.dropdown_custom}`) as HTMLElement;
