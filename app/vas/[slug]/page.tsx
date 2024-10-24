@@ -73,7 +73,7 @@ export const metadata = {
   },
 };
 
-export function setSpace(slug: string) {
+function setSpace(slug: string) {
   if (slug === 'square') {
     return '정방형공간';
   } else if (slug === 'rect') {
@@ -85,8 +85,12 @@ export function setSpace(slug: string) {
   }
 }
 
-export default function Vas({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function generateStaticParams() {
+  return [{ slug: 'square' }, { slug: 'rect' }, { slug: 'dig' }];
+}
+
+export default async function Vas({ params }: { params: { slug: string } }) {
+  const { slug } = await params;
   const title = setSpace(slug);
 
   if (title === 'error') {
