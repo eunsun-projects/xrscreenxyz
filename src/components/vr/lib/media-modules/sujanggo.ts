@@ -3,7 +3,7 @@ import { sortRegex } from '@/utils/common';
 import randomString from '@/utils/common/randomString';
 import * as THREE from 'three';
 import loadScene from '../loadScene';
-import { inputData, objectsToLoadY } from './data/defragmentation.data';
+import { inputData, objectsToLoadY } from './data/sujanggo.data';
 
 enum AttachmentType {
   /** An unknown type of attachment. This should never happen */
@@ -31,40 +31,32 @@ type Attachment = {
 
 type ModelsDefragmentationResult = [CustomTagData[], Attachment[], VideoXyz, Control];
 
-const modelsDefragmentation = async (
+const modelsSujanggo = async (
   mpSdk: MpSdk,
   model: VrModel,
   tags: CustomTagData[] | undefined | null,
   attachs: Attachment[] | undefined | null,
 ): Promise<ModelsDefragmentationResult> => {
   const videoXyz: VideoXyz = {
-    isVideo: true,
-    position: [16.9, 4, 2.5],
-    backPosition: [16.9, 4, 2.55],
-    rotation: [0, -2.9, 0],
-    scale: [2.5, 4.5, 2.5],
+    isVideo: false,
+    position: [0, 0, 0],
+    backPosition: [0, 0, 0],
+    rotation: [0, 0, 0],
+    scale: [0, 0, 0],
   };
 
   const controlXyz = {
-    isControl: true,
-    position: [16.9, 3.9, 2.48],
+    isControl: false,
+    position: [0, 0, 0],
   };
 
   /** ===================== 태그 작업 ========================= */
-
-  await mpSdk.Asset.registerTexture('introduction', '/assets/ui/tagicon_intro.png');
-  await mpSdk.Asset.registerTexture('poster', '/assets/ui/tagicon_poster.png');
-
   const customTags: CustomTagData[] = [];
   const customAttach: Attachment[] = attachs?.map((attach) => ({ ...attach })) ?? [];
   const tempRandomStr: string[] = [];
 
   inputData.forEach((data, i) => {
     tempRandomStr[i] ??= randomString(11);
-  });
-
-  const introAndPoster = inputData.filter((data) => {
-    return data.number === 10 || data.number === 21;
   });
 
   inputData.forEach((data, index) => {
@@ -101,13 +93,11 @@ const modelsDefragmentation = async (
   });
 
   // 커스텀 태그 배열을 기준으로 태그 생성
-  customTags.forEach((tag) => {
-    mpSdk.Tag.add(tag);
+  customTags.forEach((tag, index) => {
+    if (index !== 0) {
+      mpSdk.Tag.add(tag);
+    }
   });
-
-  // console.log(introAndPoster)
-  await mpSdk.Tag.editIcon(introAndPoster[0].id, 'poster');
-  await mpSdk.Tag.editIcon(introAndPoster[1].id, 'introduction');
 
   /** ================= 객체 작업 ==================== */
 
@@ -123,75 +113,56 @@ const modelsDefragmentation = async (
 
   const lights = {
     version: '1.0',
-    ambient: {
+    initial_light_1: {
       enabled: true,
-      color: { r: 1, g: 1, b: 1 },
-      intensity: 0.5,
+      color: { r: 255, g: 255, b: 255 },
+      intensity: 0.003,
     },
-    directional_joo: {
+    initial_light_2: {
       enabled: true,
-      intensity: 0.4,
-      color: { r: 1, g: 1, b: 1 },
-      position: {
-        x: 13,
-        y: 10,
-        z: -8,
-      },
-      target: {
-        x: 11.78761950513903,
-        y: 0,
-        z: -2.2582975121618842,
-      },
-      castShadow: false,
-      debug: false,
-    },
-    directional_jang: {
-      enabled: true,
-      intensity: 0.7,
-      color: { r: 1, g: 1, b: 1 },
-      position: {
-        x: 13,
-        y: 10,
-        z: -8,
-      },
-      target: {
-        x: 21.76999854741998,
-        y: 1.5,
-        z: -8.986029396839877,
-      },
-      castShadow: false,
-      debug: false,
-    },
-    directional_oh: {
-      enabled: true,
-      intensity: 0.4,
-      color: { r: 1, g: 1, b: 1 },
-      position: {
-        x: 13,
-        y: 10,
-        z: -8,
-      },
-      target: {
-        x: 9.004537548053872,
-        y: 0,
-        z: -8.542391366439461,
-      },
-      castShadow: false,
-      debug: false,
-    },
-    point: {
-      enabled: true,
-      intensity: 0.5,
-      color: { r: 1, g: 1, b: 1 },
-      position: {
-        x: 13,
-        y: 10,
-        z: -8,
-      },
+      intensity: 0.006,
+      color: { r: 160, g: 160, b: 160 },
+      position: { x: 9.7, y: 5, z: -0.8 },
       distance: 0,
       decay: 1,
-      castShadow: false,
+      castShadow: true,
       debug: false,
+    },
+    initial_light_box: {
+      enabled: true,
+      intensity: 0.0013,
+      color: { r: 255, g: 255, b: 255 },
+      position: { x: 1, y: 2, z: -1 },
+      target: { x: -0.63, y: 0.65, z: -1.25 },
+      decay: 10,
+      castShadow: true,
+    },
+    initial_light_point: {
+      enabled: true,
+      intensity: 0.006,
+      color: { r: 255, g: 255, b: 200 },
+      position: { x: 3.2, y: 6, z: -1.6 },
+      distance: 0,
+      decay: 1,
+      castShadow: true,
+    },
+    initial_light_3: {
+      enabled: true,
+      color: { r: 255, g: 230, b: 175 },
+      intensity: 0.003,
+      distance: 8,
+      castShadow: true,
+      position: { x: 11, y: 7.5, z: -5.9 },
+      target: { x: 11, y: 0, z: -5.9 },
+    },
+    initial_light_4: {
+      enabled: true,
+      color: { r: 255, g: 230, b: 200 },
+      intensity: 0.003,
+      distance: 8,
+      castShadow: true,
+      position: { x: 5, y: 7.5, z: -3.7 },
+      target: { x: 5, y: 0, z: -3.7 },
     },
   };
 
@@ -219,7 +190,7 @@ const modelsDefragmentation = async (
         this.outputs.objectRoot = node;
 
         const shadowGeo = new THREE.PlaneGeometry(1, 1);
-        const shadow_texture_url = '/assets/ui/shadow_blur_dark.png';
+        const shadow_texture_url = '/assets/ui/shadow_blur.png';
         const shadowTexture = new THREE.TextureLoader().load(shadow_texture_url);
         const shadowMat = new THREE.MeshBasicMaterial({
           map: shadowTexture,
@@ -245,19 +216,23 @@ const modelsDefragmentation = async (
   mpSdk.Scene.register('makeShadow', shadowFactory);
 
   const [sceneObject] = await mpSdk.Scene.createObjects(1);
-  // amb light
-  sceneObject.addNode().addComponent('mp.ambientLight', lights.ambient);
-  // directional light
-  sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_joo);
-  sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_jang);
-  sceneObject.addNode().addComponent('mp.directionalLight', lights.directional_oh);
-  // point light
-  sceneObject.addNode().addComponent('mp.pointLight', lights.point);
+  //global light_1
+  sceneObject.addNode().addComponent('mp.ambientLight', lights.initial_light_1);
+  //point light_2
+  sceneObject.addNode().addComponent('mp.pointLight', lights.initial_light_2);
+  //directional light_box
+  sceneObject.addNode().addComponent('mp.directionalLight', lights.initial_light_box);
+  //directional light_point
+  sceneObject.addNode().addComponent('mp.pointLight', lights.initial_light_point);
+  //directional light_3
+  sceneObject.addNode().addComponent('mp.directionalLight', lights.initial_light_3);
+  //directional light_4
+  sceneObject.addNode().addComponent('mp.directionalLight', lights.initial_light_4);
 
   const customNode = sceneObject.addNode();
   customNode.addComponent('makeShadow', shadowFactory);
 
-  await loadScene(sceneObject, objectsToLoadY, 'y');
+  await loadScene(sceneObject, objectsToLoadY);
 
   sceneObject.start();
 
@@ -267,4 +242,4 @@ const modelsDefragmentation = async (
   return [customTags, customAttach, videoXyz, controlXyz];
 };
 
-export default modelsDefragmentation;
+export default modelsSujanggo;

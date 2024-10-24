@@ -6,7 +6,11 @@ interface Node extends Scene.INode {
   obj3D?: THREE.Object3D;
 }
 
-async function loadScene(sceneObject: Scene.IObject, objects: ObjectToLoad[], axis: any) {
+async function loadScene(
+  sceneObject: Scene.IObject,
+  objects: ObjectToLoad[],
+  axis?: 'x' | 'y' | 'z' | undefined,
+) {
   const lookup: Record<string, Scene.IComponent> = {};
   const toBind = [];
 

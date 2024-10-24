@@ -3,7 +3,7 @@ export const hubData = {
     {
       number: 0,
       title: '⌖ homepage',
-      href: '/',
+      href: 'https://screenxyz.net',
     },
     {
       number: 1,
