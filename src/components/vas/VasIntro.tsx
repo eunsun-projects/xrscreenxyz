@@ -18,7 +18,7 @@ export default function VasIntro({ title, setEnter }: VasIntroProps) {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      console.log(event.key);
+      // console.log(event.key);
       if (event.key === 'Enter') {
         setEnter(true);
       }

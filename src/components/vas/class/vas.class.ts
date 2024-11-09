@@ -731,11 +731,11 @@ export default class Vas {
     this._camera.getWorldDirection(direction);
     direction.y = 0; // ignore any up/down tilt of the camera
 
-    if (this.controls.w || this.controls.ArrowUp) {
+    if (this.controls.w || this.controls.ArrowUp || this.controls['ㅈ']) {
       // w - forward
       this._camera.position.add(direction.normalize().multiplyScalar(this.player.speed));
     }
-    if (this.controls.s || this.controls.ArrowDown) {
+    if (this.controls.s || this.controls.ArrowDown || this.controls['ㄴ']) {
       // s - backward
       this._camera.position.add(direction.normalize().multiplyScalar(-this.player.speed));
     }
@@ -746,11 +746,11 @@ export default class Vas {
     right.y = 0; // Again, ignore the up/down tilt of the camera
     right.cross(this._camera.up); // This will give us the vector that is perpendicular to the up vector and direction vector
 
-    if (this.controls.a || this.controls.ArrowLeft) {
+    if (this.controls.a || this.controls.ArrowLeft || this.controls['ㅁ']) {
       // a - left
       this._camera.position.add(right.normalize().multiplyScalar(-this.player.speed));
     }
-    if (this.controls.d || this.controls.ArrowRight) {
+    if (this.controls.d || this.controls.ArrowRight || this.controls['ㅇ']) {
       // d - right
       this._camera.position.add(right.normalize().multiplyScalar(this.player.speed));
     }
@@ -873,9 +873,21 @@ export default class Vas {
   onKeydownUp() {
     document.addEventListener('keydown', (e) => {
       if (
-        ['w', 'a', 's', 'd', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape'].includes(
-          e.key,
-        )
+        [
+          'w',
+          'a',
+          's',
+          'd',
+          'ㅈ',
+          'ㅁ',
+          'ㄴ',
+          'ㅇ',
+          'ArrowLeft',
+          'ArrowRight',
+          'ArrowUp',
+          'ArrowDown',
+          'Escape',
+        ].includes(e.key)
       ) {
         this.controls[e.key] = true;
       } else if (e.key === ' ') {
@@ -884,9 +896,21 @@ export default class Vas {
     });
     document.addEventListener('keyup', (e) => {
       if (
-        ['w', 'a', 's', 'd', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape'].includes(
-          e.key,
-        )
+        [
+          'w',
+          'a',
+          's',
+          'd',
+          'ㅈ',
+          'ㅁ',
+          'ㄴ',
+          'ㅇ',
+          'ArrowLeft',
+          'ArrowRight',
+          'ArrowUp',
+          'ArrowDown',
+          'Escape',
+        ].includes(e.key)
       ) {
         this.controls[e.key] = false;
       } else if (e.key === ' ') {
