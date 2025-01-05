@@ -1,6 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  // Add HTTP headers to specific routes
+  async headers() {
+    return [
+      {
+        // Apply headers to the specific page that needs to be embedded in an iframe
+        source: '/gpuonline', // Replace with your specific page path, e.g., /embed
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOW-FROM https://eunoh.top', // Replace with the domain you want to allow
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://eunoh.top;", // Replace with allowed domains
+          },
+        ],
+      },
+    ];
+  },
+
   webpack(config) {
     // // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
