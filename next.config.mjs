@@ -16,6 +16,14 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: "frame-ancestors 'self' https://eunoh.top;", // Replace with allowed domains
           },
+          {
+            key: 'X-Frame-Options',
+            value: 'ALLOW-FROM http://localhost:3000', // Replace with the domain you want to allow
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' http://localhost:3000;", // Replace with allowed domains
+          },
         ],
       },
     ];
