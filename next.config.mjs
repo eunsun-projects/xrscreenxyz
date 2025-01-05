@@ -26,6 +26,32 @@ const nextConfig = {
           },
         ],
       },
+      {
+        source: '/matterport-assets/:path*', // Matterport 관련 정적 리소스 경로
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://eunoh.top', // 모든 도메인 허용 (필요 시 특정 도메인으로 제한 가능)
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, OPTIONS',
+          },
+        ],
+      },
+      {
+        source: '/matterport-assets/:path*', // Matterport 관련 정적 리소스 경로
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'http://localhost:3000', // 모든 도메인 허용 (필요 시 특정 도메인으로 제한 가능)
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, OPTIONS',
+          },
+        ],
+      },
     ];
   },
 
