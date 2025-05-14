@@ -18,7 +18,7 @@ export const hubData = {
     {
       number: 3,
       title: '⌖ 3D object viewer',
-      href: 'https://eunoh.top/works/viewer', // model-viewer
+      href: 'https://work.eunoh.top/works/viewer', // model-viewer
     },
   ],
   sample: [
