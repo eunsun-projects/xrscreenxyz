@@ -8,6 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mp:graph-query" content="src=graphql/prefetch.gql, query=GetModelPrefetch">
+  <base href="/matterport-assets/">
   <style>
     body {
       width: 100%;
@@ -90,8 +91,37 @@
 
 <script src='vendors/three/0.151.3/three.min.js'></script>
 <script src='js/browser-check.js'></script>
+<script>
+  // webpack publicPath를 명시적으로 설정
+  // showcase.js가 로드되기 전에 실행되어야 함
+  window.__webpack_public_path__ = '/matterport-assets/js/';
+  if (typeof window.__webpack_require__ === 'undefined') {
+    window.__webpack_require__ = {};
+  }
+  window.__webpack_require__.p = '/matterport-assets/js/';
+</script>
 <script src='js/showcase.js'></script>
 <script>
+  // showcase.js 로드 후 webpack publicPath 재설정 (webpack이 덮어쓸 수 있으므로)
+  (() => {
+    var basePath = '/matterport-assets/js/';
+    if (typeof __webpack_require__ !== 'undefined') {
+      __webpack_require__.p = basePath;
+    }
+    if (typeof __webpack_public_path__ !== 'undefined') {
+      __webpack_public_path__ = basePath;
+    }
+    // webpack 런타임이 로드된 후에도 publicPath 유지
+    setTimeout(() => {
+      if (typeof __webpack_require__ !== 'undefined') {
+        __webpack_require__.p = basePath;
+      }
+      if (typeof __webpack_public_path__ !== 'undefined') {
+        __webpack_public_path__ = basePath;
+      }
+    }, 0);
+  })();
+  
   var detailObject = {
     config: {"apiHost":"https://my.matterport.com","pointerPreventDefault":false,"disableMobileRedirect":true}
   };
