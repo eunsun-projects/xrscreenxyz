@@ -98,7 +98,7 @@ export const vrData = [
 		bgm: [false, ""],
 		video: [true, "src.mp4"],
 		number: 0,
-		enabled: true,
+		enabled: false,
 		floorIndex: 0,
 		roomId: "",
 	},
