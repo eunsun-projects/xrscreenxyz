@@ -1,6 +1,6 @@
 import { ObjectToLoad } from '@/components/types/vr.type';
+import type { Scene } from '@/sdk';
 import * as THREE from 'three';
-import { Scene } from '../../../../public/matterport-assets/sdk';
 
 interface Node extends Scene.INode {
   obj3D?: THREE.Object3D;

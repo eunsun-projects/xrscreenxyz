@@ -1,6 +1,6 @@
 import { CustomTagData } from '@/components/types/vr.type';
+import type { Tag } from '@/sdk';
 import useVrStore from '@/zustand/vr.store';
-import { Tag } from '../../../../public/matterport-assets/sdk';
 
 export const watchTagState = (
   mpSdk: MpSdk,

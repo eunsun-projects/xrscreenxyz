@@ -2,9 +2,9 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 import { useShallow } from "zustand/shallow";
+import type { Model } from "@/sdk";
 import { cn } from "@/utils/common";
 import useVrStore, { type VrStore } from "@/zustand/vr.store";
-import type { Model } from "../../../public/matterport-assets/sdk";
 import type { VrModel } from "../types/vr.type";
 import { customizeVr, offMatterportUi, shareControl } from "./lib";
 

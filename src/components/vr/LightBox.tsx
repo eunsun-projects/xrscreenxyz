@@ -4,7 +4,7 @@
 import styles from '@/styles/dropdown.module.css';
 import { Dispatch, memo, SetStateAction, useEffect, useRef, useState } from 'react';
 import { GrZoomIn, GrZoomOut } from 'react-icons/gr';
-import { Tag } from '../../../public/matterport-assets/sdk';
+import type { Tag } from '@/sdk';
 
 interface LightboxProps {
   attach: Tag.Attachment;

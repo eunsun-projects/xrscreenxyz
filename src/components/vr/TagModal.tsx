@@ -2,11 +2,11 @@
 'use client';
 
 import styles from '@/styles/dropdown.module.css';
+import type { Tag } from '@/sdk';
 import { linkUrl, vimeoUrl, youtubeUrl } from '@/utils/common';
 import useVrStore from '@/zustand/vr.store';
 import { memo, useEffect, useRef, useState } from 'react';
 import { GrZoomIn } from 'react-icons/gr';
-import { Tag } from '../../../public/matterport-assets/sdk';
 import VideoLoader from '../loaders/VideoLoader';
 import { CustomTagData } from '../types/vr.type';
 import LightBox from './LightBox';

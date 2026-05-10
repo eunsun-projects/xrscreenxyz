@@ -3,9 +3,9 @@
 
 import { memo, useMemo } from "react";
 import styles from "@/styles/dropdown.module.css";
+import type { Model } from "@/sdk";
 import { phoneMiddle3, phoneMiddle4 } from "@/utils/common";
 import useVrStore from "@/zustand/vr.store";
-import type { Model } from "../../../public/matterport-assets/sdk";
 
 interface InfoModalProps {
 	modelInfo: Model.ModelDetails;

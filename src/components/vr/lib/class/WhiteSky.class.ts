@@ -1,5 +1,5 @@
+import type { Mode } from '@/sdk';
 import * as THREE from 'three';
-import { Mode } from '../../../../../public/matterport-assets/sdk';
 
 class WhiteSky {
   inputs: {

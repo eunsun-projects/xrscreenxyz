@@ -1,6 +1,6 @@
 import { Control, ExtendedVideo, VideoXyz } from '@/components/types/vr.type';
+import type { Scene } from '@/sdk';
 import * as THREE from 'three';
-import { Scene } from '../../../../../public/matterport-assets/sdk';
 
 /** ============= class video controller ================ */
 export class VideoController {

@@ -1,5 +1,5 @@
 import { CustomTagData } from '@/components/types/vr.type';
-import { Tag } from '../../../../public/matterport-assets/sdk';
+import type { Tag } from '@/sdk';
 
 export const subscribeTags = async (
   mpSdk: MpSdk,

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -10,7 +14,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "target": "esnext",
     "plugins": [
@@ -19,13 +23,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/*": ["./app/*"],
-      "@/sdk": ["./sdk"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/app/*": [
+        "./app/*"
+      ],
+      "@/sdk": [
+        "./sdk"
+      ]
     }
   },
   "include": [
-    "svgr.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
@@ -33,7 +42,9 @@
     "global.d.ts",
     "src/components/vr/lib/media-modules/*.ts",
     "sdk.d.ts",
-    "public/matterport-assets/sdk.d.ts"
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

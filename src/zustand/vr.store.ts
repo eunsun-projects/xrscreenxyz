@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { DropdownData, ModalState } from "@/components/types/vr.type";
-import type { Model } from "../../public/matterport-assets/sdk";
+import type { Model } from "@/sdk";
 
 export type VrStore = {
 	mpSdk: MpSdk | null;
@@ -8,8 +8,8 @@ export type VrStore = {
 		isEmbed: boolean;
 		isEmbedMiddle: boolean;
 	};
-	audioRef: React.RefObject<HTMLAudioElement> | null;
-	videoRef: React.RefObject<HTMLVideoElement> | null;
+	audioRef: React.RefObject<HTMLAudioElement | null> | null;
+	videoRef: React.RefObject<HTMLVideoElement | null> | null;
 	viewer: Element | null;
 	dropdownData: DropdownData | null;
 	isWebCompReady: boolean;
@@ -20,8 +20,8 @@ export type VrStore = {
 	setMpSdk: (mpSdk: MpSdk) => void;
 	setEmbed: (embed: VrStore["embed"]) => void;
 	setIsWebCompReady: (isWebCompReady: boolean) => void;
-	setAudioRef: (audioRef: React.RefObject<HTMLAudioElement>) => void;
-	setVideoRef: (videoRef: React.RefObject<HTMLVideoElement>) => void;
+	setAudioRef: (audioRef: React.RefObject<HTMLAudioElement | null>) => void;
+	setVideoRef: (videoRef: React.RefObject<HTMLVideoElement | null>) => void;
 	setViewer: (viewerRef: Element) => void;
 	setDropdownData: (dropdownData: DropdownData) => void;
 	setIsDropdownReady: (isDropdownReady: boolean) => void;
@@ -50,9 +50,9 @@ const useVrStore = create<VrStore>((set) => ({
 	setMpSdk: (mpSdk: MpSdk) => set({ mpSdk }),
 	setEmbed: (embed: VrStore["embed"]) => set({ embed }),
 	setIsWebCompReady: (isWebCompReady: boolean) => set({ isWebCompReady }),
-	setAudioRef: (audioRef: React.RefObject<HTMLAudioElement>) =>
+	setAudioRef: (audioRef: React.RefObject<HTMLAudioElement | null>) =>
 		set({ audioRef }),
-	setVideoRef: (videoRef: React.RefObject<HTMLVideoElement>) =>
+	setVideoRef: (videoRef: React.RefObject<HTMLVideoElement | null>) =>
 		set({ videoRef }),
 	setViewer: (viewer: Element) => set({ viewer }),
 	setDropdownData: (dropdownData: DropdownData) => set({ dropdownData }),

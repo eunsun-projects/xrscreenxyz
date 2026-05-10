@@ -1,5 +1,5 @@
 import type { vrData } from "@/data/vr.data";
-import type { Scene, Tag } from "../../../public/matterport-assets/sdk";
+import type { Scene, Tag } from "@/sdk";
 
 export type VrModel = (typeof vrData)[number];
 export interface TestData {

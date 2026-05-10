@@ -1,4 +1,4 @@
-import { Tag } from '../../../../sdk';
+import type { Tag } from '@/sdk';
 import { Control, CustomTagData, VideoXyz, VrModel } from '../../../components/types/vr.type';
 
 const mediaModules: { [key: string]: () => Promise<any> } = {

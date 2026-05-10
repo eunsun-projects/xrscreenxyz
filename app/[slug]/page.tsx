@@ -2,14 +2,18 @@ import VrTemplate from '@/components/vr/VrTemplate';
 import { vrData } from '@/data/vr.data';
 import NotFound from '../not-found';
 
+interface VrPageProps {
+  params: Promise<{ slug: string }>;
+}
+
 export async function generateStaticParams() {
   return vrData.map((post) => ({
     slug: post.unique,
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function generateMetadata({ params }: VrPageProps) {
+  const { slug } = await params;
   const model = vrData.find((post) => post.unique === slug);
 
   if (slug.length > 1 && model && slug === model.unique) {
@@ -92,8 +96,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-function VrPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+async function VrPage({ params }: VrPageProps) {
+  const { slug } = await params;
   const model = vrData.find((post) => post.unique === slug);
   if (!model) return <NotFound />;
   return <VrTemplate model={model} />;

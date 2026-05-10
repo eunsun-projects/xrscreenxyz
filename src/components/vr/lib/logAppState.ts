@@ -1,4 +1,4 @@
-import { App, Tag } from '../../../../public/matterport-assets/sdk';
+import type { App, Tag } from '@/sdk';
 
 export const logAppState = (mpSdk: MpSdk, tags: Tag.TagData[], attachs: Tag.Attachment[]) => {
   mpSdk.App.state.subscribe(function (appState: App.State) {
