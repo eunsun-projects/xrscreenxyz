@@ -1,0 +1,10 @@
+# gitleaks 오탐 목록 (fingerprint = commit:file:rule:line)
+#
+# 새 항목을 넣기 전에 반드시 실제 값을 확인할 것.
+# 진짜 시크릿이면 여기 등록하는 게 아니라 "키 로테이션"이 먼저다.
+# 히스토리를 지워도 fork·클론·CI 로그·로컬 사본에 남는다.
+#
+# ── matterport 벤더 번들 ──
+# generic-api-key 룰이 minified JS 의 내부 심볼에 반응한 것.
+# 매치: `t.keys=`, `t.MismatchedTokenException=` (chevrotain 파서 클래스명)
+657cc2b465e9d7b28303bbd774391683b8f7ed65:public/matterport-assets/js/27.js:generic-api-key:2
